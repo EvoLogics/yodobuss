@@ -56,7 +56,10 @@ MACHINE_CONFIG ?= default
 define add_to_local_conf_opt
   $(foreach V, $(NEWVARS), \
     $(if $(filter-out OLDVARS $(OLDVARS), $V), \
-      $(eval LOCAL_CONF_OPT += '$V = "$($V)"')) \
+	  $(if $(findstring pend, $V), \
+      $(eval LOCAL_CONF_OPT += '$V = " $($V) "'), \
+      $(eval LOCAL_CONF_OPT += '$V = "$($V)"') \
+	  )) \
    )
 endef
 
@@ -197,6 +200,7 @@ $(BUILD_DIR)/conf/local.conf:
 	@echo "MACHINE_CONFIG ?= $(MACHINE_CONFIG)" >> .config.mk
 
 	@ln -sf build/tmp/deploy/images/$(MACHINE) deploy-images
+	@ln -sf build/tmp/deploy/ipk deploy-ipk
 
 .PHONY: add-layer remove-layer clean-bbconfigs clean-deploy cleanall package-index ipk-server
 add-layer: configure layers
