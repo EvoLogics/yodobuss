@@ -28,24 +28,16 @@ LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " fuse-exfat e2fsprogs exfat-utils e
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " evo-envinit"'
 # Communication Module Specific
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " gpsd-tiny chrony"'
-# Makes an image suitable for development (e.g. allows root logins without
-# passwords and enables post-installation logging)"
-LOCAL_CONF_OPT    += 'EXTRA_IMAGE_FEATURES += "debug-tweaks "'
 # Read only rootfs
 LOCAL_CONF_OPT 	  += 'EXTRA_IMAGE_FEATURES_append = " read-only-rootfs"'
 
-
-
 LOCAL_CONF_OPT    += 'PACKAGE_CLASSES = "package_ipk"'
-
-
 
 LOCAL_CONF_OPT += 'BBMASK            += ".*swupdate*"'
 LOCAL_CONF_OPT += 'BBMASK            += ".*karo.*"'
 LOCAL_CONF_OPT += 'BBMASK            += ".*toradex.*"'
 LOCAL_CONF_OPT += 'BBMASK            += ".*at91.*"'
 LOCAL_CONF_OPT += 'BBMASK            += ".*librsync.*"'
-
 
 # Start recording variables which will go to te local.conf file
 # If you want do redefine the variable VAR previously set, first use:
@@ -56,6 +48,7 @@ OLDVARS := $(sort $(.VARIABLES))
 
 # Actually add recorded variables to LOCAL_CONF_OPT
 NEWVARS := $(sort $(.VARIABLES))
+
 $(call add_to_local_conf_opt)
 
 # Build dir
