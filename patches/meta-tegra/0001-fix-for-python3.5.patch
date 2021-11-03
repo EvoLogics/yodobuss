@@ -1,0 +1,26 @@
+From 0f982b97881d14ebb0737850c34dfc404aa7f40f Mon Sep 17 00:00:00 2001
+From: llewellyn-evo <llewellyn.fernandes@evologics.de>
+Date: Wed, 3 Nov 2021 16:02:25 +0100
+Subject: [PATCH] fix for python3.5
+
+---
+ .../libnvidia-container-tools_0.9.0.bb                         | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/external/virtualization-layer/recipes-containers/libnvidia-container-tools/libnvidia-container-tools_0.9.0.bb b/external/virtualization-layer/recipes-containers/libnvidia-container-tools/libnvidia-container-tools_0.9.0.bb
+index 8732727d..addcf79e 100644
+--- a/external/virtualization-layer/recipes-containers/libnvidia-container-tools/libnvidia-container-tools_0.9.0.bb
++++ b/external/virtualization-layer/recipes-containers/libnvidia-container-tools/libnvidia-container-tools_0.9.0.bb
+@@ -57,7 +57,8 @@ def build_date(d):
+     epoch = d.getVar('SOURCE_DATE_EPOCH')
+     if epoch:
+         dt = datetime.datetime.fromtimestamp(int(epoch), tz=datetime.timezone.utc)
+-        return 'DATE=' + dt.isoformat(timespec='minutes')
++        print(dt)
++        return 'DATE=' + dt.isoformat()
+     return ''
+ 
+ # We need to link with libelf, otherwise we need to
+-- 
+2.25.1
+
