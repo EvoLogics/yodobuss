@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:buster
 MAINTAINER Maksym Maksym <komar@evologics.de>
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -20,9 +20,10 @@ RUN echo en_US.UTF-8 UTF-8 >> /etc/locale.gen && locale-gen && \
         build-essential sudo wget git-core perl-base \
         libncurses5-dev libtinfo-dev \
         tmux screen bash-completion vim-tiny \
-        openssh-client rsync \
+        openssh-client rsync ca-certificates \
     && \
     rm -rf /var/lib/apt/lists/*
+
 
 WORKDIR /work
 
