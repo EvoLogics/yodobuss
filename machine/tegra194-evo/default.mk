@@ -35,9 +35,9 @@ LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " evo-envinit"'
 # Communication Module Specific
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " chrony soft-hwclock"'
 # Jetson Module Specific
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " tensorrt-core tegra-mmapi tegra-mmapi-dev deepstream-5.1 libvisionworks tegra194-usb-device-mode"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " tensorrt-core tegra-mmapi tegra-mmapi-dev libvisionworks tegra194-usb-device-mode"'
 # Jetson Module Specific
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " packagegroup-cuda packagegroup-tegra-docker packagegroup-gstreamer"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " packagegroup-cuda packagegroup-tegra-docker packagegroup-gstreamer packagegroup-tegra-tools"'
 # Image Update
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " swupdate"'
 # Read only rootfs
@@ -93,4 +93,4 @@ LAYERS	+= git://git.yoctoproject.org/meta-virtualization
 # LAYERS  += ../sources/meta-tegra/contrib
 
 
-# MACHINE_BITBAKE_TARGETS = meta-toolchain ${IMAGE_NAME}:do_populate_sdk ${IMAGE_NAME}:do_populate_sdk_ext
+# MACHINE_BITBAKE_TARGETS = meta-toolchain ${IMAGE_NAME}:do_populate_sdk
