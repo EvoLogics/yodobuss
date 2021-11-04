@@ -36,20 +36,35 @@ LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " evo-envinit"'
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " chrony soft-hwclock"'
 # Jetson Module Specific
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " tensorrt-core tegra-mmapi tegra-mmapi-dev deepstream-5.1 libvisionworks tegra194-usb-device-mode"'
-# Jetson Module CUDA
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " cuda-samples cudnn cuda-command-line-tools cuda-libraries cuda-driver"'
-# Jetson Module Gstreamer
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " gstreamer1.0-plugins-nvvideo4linux2"'
-# Jetson Module docker
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " nvidia-docker nvidia-container-runtime cudnn-container-csv libvisionworks-container-csv libnvidia-container-tools"'
+# Jetson Module Specific
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " packagegroup-cuda packagegroup-tegra-docker packagegroup-gstreamer"'
+# Image Update
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " swupdate"'
 # Read only rootfs
 LOCAL_CONF_OPT   += 'EXTRA_IMAGE_FEATURES_append = " package-management read-only-rootfs"'
 
 LOCAL_CONF_OPT   += 'TCLIBC = "glibc"'
 
 LOCAL_CONF_OPT   += 'PREFERRED_VERSION_python3 = "3.8%"'
-
 LOCAL_CONF_OPT   += 'PREFERRED_VERSION_python3-native = "3.8%"'
+# Swupdare prefered version
+LOCAL_CONF_OPT   += 'PREFERRED_VERSION_swupdate = "2021.04"'
+# Gstreamer prefered version
+LOCAL_CONF_OPT   += 'PREFERRED_VERSION_gstreamer1.0 = "1.14.%"'
+LOCAL_CONF_OPT   += 'PREFERRED_VERSION_gstreamer1.0-plugins-base = "1.14.%"'
+LOCAL_CONF_OPT   += 'PREFERRED_VERSION_gstreamer1.0-libav = "1.14.%"'
+LOCAL_CONF_OPT   += 'PREFERRED_VERSION_gstreamer1.0-meta-base = "1.14.%"'
+LOCAL_CONF_OPT   += 'PREFERRED_VERSION_gstreamer1.0-omx = "1.14.%"'
+LOCAL_CONF_OPT   += 'PREFERRED_VERSION_gstreamer1.0-plugins-bad = "1.14.%"'
+LOCAL_CONF_OPT   += 'PREFERRED_VERSION_gstreamer1.0-plugins-good = "1.14.%"'
+LOCAL_CONF_OPT   += 'PREFERRED_VERSION_gstreamer1.0-plugins-ugly = "1.14.%"'
+LOCAL_CONF_OPT   += 'PREFERRED_VERSION_gstreamer1.0-python = "1.14.%"'
+LOCAL_CONF_OPT   += 'PREFERRED_VERSION_gstreamer1.0-rtsp-server = "1.14.%"'
+LOCAL_CONF_OPT   += 'PREFERRED_VERSION_gstreamer1.0-vaapi = "1.14.%"'
+
+LOCAL_CONF_OPT   += 'LICENSE_FLAGS_WHITELIST_append = " commercial"'
+
+
 
 $(call local_conf_options_end)
 ################ end build/conf/local.conf options #####################
@@ -78,4 +93,4 @@ LAYERS	+= git://git.yoctoproject.org/meta-virtualization
 # LAYERS  += ../sources/meta-tegra/contrib
 
 
-#MACHINE_BITBAKE_TARGETS = meta-toolchain ${IMAGE_NAME}:do_populate_sdk ${IMAGE_NAME}:do_populate_sdk_ext
+# MACHINE_BITBAKE_TARGETS = meta-toolchain ${IMAGE_NAME}:do_populate_sdk ${IMAGE_NAME}:do_populate_sdk_ext
