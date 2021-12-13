@@ -55,8 +55,8 @@ just delete if the binding is not needed anymore.
 Contents of the 'home' folder are intentionally excluded from git to prevent accidentally pushing
 sensitive information to git.
 
-=== Usefull commands ===
-Show help with usefull targets and tips
+=== Useful commands ===
+Show help with useful targets and tips
 $ make help
 
 Invoke shell with inside docker container.
@@ -80,4 +80,4 @@ devshell$ bitbake evologics-base-image -fc image_ubi && bitbake evologics-base-i
 devshell$ bitbake acme-minimal-image -fc image_ubi && bitbake acme-minimal-image
 devshell$ bitbake acme-minimal-image -fc clean && bitbake acme-minimal-image
 
-Usefull bitbake commands: https://github.com/gumstix/yocto-manifest/wiki#useful-bitbake-commands
+Useful bitbake commands: https://github.com/gumstix/yocto-manifest/wiki#useful-bitbake-commands
