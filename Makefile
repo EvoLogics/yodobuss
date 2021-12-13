@@ -10,8 +10,8 @@
 # Uncomment this if you want use local builded docker image
 #USE_LOCAL_DOCKER_IMAGE=1
 
-# Comment this if you don't want create symlinks in project root directory to usefull directories
-CREATE_USEFULL_SYMLINKS = 1
+# Comment this if you don't want create symlinks in project root directory to useful directories
+CREATE_USEFUL_SYMLINKS = 1
 
 YOCTO_RELEASE     = thud
 
@@ -198,7 +198,7 @@ $(foreach v, $(filter LOCAL_CONF_OPT_%,$(.VARIABLES)),\
 help:
 	@echo Variables:
 	@echo 'USE_LOCAL_DOCKER_IMAGE=1  - Use local builded docker image. Disabled by default'
-	@echo 'CREATE_USEFULL_SYMLINKS=1 - Create symbolic links to usefull directories. Enabled by default'
+	@echo 'CREATE_USEFUL_SYMLINKS=1 - Create symbolic links to useful directories. Enabled by default'
 	@echo
 	@echo LOCAL_CONF_OPT_DL_DIR=\''$(LOCAL_CONF_OPT_DL_DIR)'\'
 	@echo LOCAL_CONF_OPT_SSTATE_DIR=\''$(LOCAL_CONF_OPT_SSTATE_DIR)'\'
@@ -303,7 +303,7 @@ $(call uniq,$(LAYERS_DIR)):
 $(BUILD_DIR):
 	@mkdir -p $(BUILD_DIR)
 
-ifneq ($(CREATE_USEFULL_SYMLINKS),)
+ifneq ($(CREATE_USEFUL_SYMLINKS),)
     SYMLINK_TO_DIR_images = build/tmp/deploy/images/$(MACHINE)
     SYMLINK_TO_DIR_ipk    = build/tmp/deploy/ipk
     SYMLINK_TO_DIR_sdk    = build/tmp/deploy/sdk
@@ -311,10 +311,10 @@ ifneq ($(CREATE_USEFULL_SYMLINKS),)
     SYMLINK_TO_DIR_kernel-build-artifacts = build/tmp/work-shared/$(MACHINE)/kernel-build-artifacts
 
     $(foreach v, $(filter SYMLINK_TO_DIR_%,$(.VARIABLES)),\
-        $(eval USEFULL_SYMLINKS += $(patsubst SYMLINK_TO_DIR_%,%,$(v))) \
+        $(eval USEFUL_SYMLINKS += $(patsubst SYMLINK_TO_DIR_%,%,$(v))) \
     )
 
-$(USEFULL_SYMLINKS):
+$(USEFUL_SYMLINKS):
 	@ln -fsT $(SYMLINK_TO_DIR_$(@F)) $(@F)
 
 endif
@@ -325,7 +325,7 @@ configure: $(BUILD_DIR)/conf/local.conf
 LOCAL_CONF_MARK = \#=== This block automatically generated. Do not change nothing there ===
 # Build directory is created by oe-init-build-env script,
 # which is called every run from container entrypoint script
-$(BUILD_DIR)/conf/local.conf: $(PROJ_TOP_DIR)/$(SOURCES_DIR) $(LAYERS_DIR) $(BUILD_DIR) $(USEFULL_SYMLINKS)
+$(BUILD_DIR)/conf/local.conf: $(PROJ_TOP_DIR)/$(SOURCES_DIR) $(LAYERS_DIR) $(BUILD_DIR) $(USEFUL_SYMLINKS)
 	@#Update symlink to build directory, in case it was changed by lazyconf
 	@ln -sfT $(BUILD_DIR) build
 
@@ -392,7 +392,7 @@ clean-bbconfigs: clean-links
 
 # help: Remove useful symbolic links
 clean-links:
-	@rm -f build $(USEFULL_SYMLINKS)
+	@rm -f build $(USEFUL_SYMLINKS)
 .PHONY: clean-links
 
 # help: Remove resulting target images and packages
