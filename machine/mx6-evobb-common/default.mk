@@ -60,7 +60,7 @@ LAYERS           += \
                     https://github.com/Freescale/meta-freescale-3rdparty \
                     https://github.com/sbabic/meta-swupdate \
                     git://git.toradex.com/meta-toradex-bsp-common.git \
-                    git://git.toradex.com/meta-toradex-nxp.git \
+                    git://git.toradex.com/meta-toradex-nxp.git;patches=0001-linux-toradex-change-SRCPV-to-SRCREV.patch \
                     https://github.com/meta-erlang/meta-erlang.git;branch=zeus \
                     https://github.com/evologics/meta-evo
 

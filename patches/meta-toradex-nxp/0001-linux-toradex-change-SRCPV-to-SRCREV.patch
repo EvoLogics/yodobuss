@@ -1,0 +1,27 @@
+From d5f6ba14baa59b347707705a28afc3181436712d Mon Sep 17 00:00:00 2001
+From: Victor Voronin <viktor.voronin@evologics.de>
+Date: Mon, 13 Dec 2021 12:01:01 +0100
+Subject: [PATCH] recipes-kernel/linux/linux-toradex_4.14-2.3.x.bb: change
+ SRCPV to SRCREV
+
+to prevent RecursionError
+---
+ recipes-kernel/linux/linux-toradex_4.14-2.3.x.bb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/recipes-kernel/linux/linux-toradex_4.14-2.3.x.bb b/recipes-kernel/linux/linux-toradex_4.14-2.3.x.bb
+index 4f452e6..eaec021 100644
+--- a/recipes-kernel/linux/linux-toradex_4.14-2.3.x.bb
++++ b/recipes-kernel/linux/linux-toradex_4.14-2.3.x.bb
+@@ -12,7 +12,7 @@ SRC_URI = " \
+ KERNEL_MODULE_AUTOLOAD += "${@bb.utils.contains('COMBINED_FEATURES', 'usbgadget', ' libcomposite', '',d)}"
+ 
+ LOCALVERSION = "-${TDX_VER_ITEM}"
+-PV_append = "+git${SRCPV}"
++PV_append = "+git${SRCREV}"
+ 
+ SRCREV = "b8e49e74e60c8eb20328e4aac412f5cf338e9d0f"
+ SRCBRANCH = "toradex_4.14-2.3.x-imx"
+-- 
+2.25.1
+
