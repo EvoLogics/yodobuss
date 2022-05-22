@@ -25,6 +25,15 @@ BBMASK         += .*meta-virtualization/recipes-core/busybox/busybox.*
 FORTRAN_forcevariable = ,fortran
 RUNTIMETARGET_append_pn-gcc-runtime = libquadmath
 
+# support for sd-rootfs
+LUKS_PASS_FILE = $$$${TOPDIR}/../private/initramfs-sd-rootfs-cryposetup.pass
+INITRAMFS_IMAGE = evologics-initramfs-cryptsetup-image
+INITRAMFS_IMAGE_BUNDLE = 1
+PREFERRED_RPROVIDER_libdevmapper = libdevmapper
+PACKAGECONFIG_pn-cryptsetup = cryptsetup
+USE_DEVFS = 1
+VIRTUAL-RUNTIME_dev_manager =
+
 $(call local_conf_options_end)
 ################ end build/conf/local.conf options #####################
 
@@ -59,10 +68,17 @@ LAYERS += https://github.com/sbabic/meta-swupdate
 LAYER_poky_patches = 0001-image_types.bbclass-add-support-for-multiply-ubifs-v.patch
 
 MACHINE_BITBAKE_TARGETS = meta-toolchain swupdate-images-evo packagegroup-erlang-embedded \
-						  evologics-base-image:do_populate_sdk evologics-base-image:do_populate_sdk_ext
+                          evologics-base-image:do_populate_sdk evologics-base-image:do_populate_sdk_ext
 #						  && bitbake evologics-base-image -c do_populate_sdk && bitbake evologics-base-image -c do_populate_sdk_ext
 
-TARGET_ALL_DEPEND = private/evo-updater.pem private/evo-updater.pub.pem private/evo-updater.pass
+TARGET_ALL_DEPEND = private/evo-updater.pem \
+                    private/evo-updater.pub.pem \
+                    private/evo-updater.pass \
+                    private/initramfs-sd-rootfs-cryposetup.pass
+
+# Needed for creating crypted LUKS partitions with cryptsetup, which create nodes on /dev/mapper/
+DOCKER_BIND      += --privileged=true
+
 $(TARGET_ALL_DEPEND):
 	@echo "You should copy file \"$(TARGET_ALL_DEPEND)\" to project root directory" >&2
 	@exit 1
