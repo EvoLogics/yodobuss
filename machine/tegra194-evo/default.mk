@@ -21,25 +21,28 @@ LOCAL_CONF_OPT   += 'BBMASK   += ".*u-boot.*"'
 # Must have for the platform
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " rng-tools iproute2 coreutils grep bridge-utils iputils iperf3 net-tools"'
 # Very useful software
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " opkg dropbear bash tar procps util-linux ckermit htop sysbench gpu-burn"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " opkg dropbear bash tar procps util-linux ckermit htop sysbench gpu-burn iozone3"'
 # Useful software
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " netcat-openbsd screen tmux rsync file daemonize gzip tar"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " netcat-openbsd screen tmux rsync file daemonize gzip tar curl chrony soft-hwclock"'
 # Hardware tools
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " can-utils i2c-tools pps-tools usbutils ethtool libgpiod pciutils"'
 # Development
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " ltrace strace kernel-devicetree tcl tcpdump"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " ltrace strace kernel-devicetree tcl tcpdump tegra194-usb-device-mode"'
 # FAT/exFAT support
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " fuse-exfat e2fsprogs exfat-utils e2fsprogs-resize2fs parted tegra-nvpmodel "'
 # Init for read-only rootfs
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " evo-envinit"'
-# Communication Module Specific
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " chrony soft-hwclock"'
+
+
 # Jetson Module Specific
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " tensorrt-core tegra-mmapi tegra-mmapi-dev libvisionworks tegra194-usb-device-mode"'
+# LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " tensorrt-core tegra-mmapi tegra-mmapi-dev libvisionworks"'
 # Jetson Module Specific
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " packagegroup-cuda packagegroup-tegra-docker packagegroup-gstreamer packagegroup-tegra-tools"'
+# LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " packagegroup-cuda packagegroup-tegra-docker packagegroup-tegra-tools"'
+
 # Image Update
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " swupdate"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " swupdate swupdate-webapp-evo tegra-bup-payload tegra-eeprom-tool tegra-fuse-tool tegra-sysinstall-tools "'
+# LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " tegra-bootfiles "'
+
 # Read only rootfs
 LOCAL_CONF_OPT   += 'EXTRA_IMAGE_FEATURES_append = " package-management read-only-rootfs"'
 
@@ -47,8 +50,8 @@ LOCAL_CONF_OPT   += 'TCLIBC = "glibc"'
 
 LOCAL_CONF_OPT   += 'PREFERRED_VERSION_python3 = "3.8%"'
 LOCAL_CONF_OPT   += 'PREFERRED_VERSION_python3-native = "3.8%"'
-# Swupdare prefered version
-LOCAL_CONF_OPT   += 'PREFERRED_VERSION_swupdate = "2021.04"'
+# Swupdate prefered version
+LOCAL_CONF_OPT   += 'PREFERRED_VERSION_swupdate = "2021.11"'
 # Gstreamer prefered version
 LOCAL_CONF_OPT   += 'PREFERRED_VERSION_gstreamer1.0 = "1.14.%"'
 LOCAL_CONF_OPT   += 'PREFERRED_VERSION_gstreamer1.0-plugins-base = "1.14.%"'
@@ -64,6 +67,7 @@ LOCAL_CONF_OPT   += 'PREFERRED_VERSION_gstreamer1.0-vaapi = "1.14.%"'
 
 LOCAL_CONF_OPT   += 'LICENSE_FLAGS_WHITELIST_append = " commercial"'
 
+LOCAL_CONF_OPT   += 'PACKAGE_CLASSES = "package_ipk"'
 
 
 $(call local_conf_options_end)
@@ -90,7 +94,9 @@ LAYERS	+= https://github.com/sbabic/meta-swupdate
 
 LAYERS	+= git://git.yoctoproject.org/meta-virtualization
 
+LAYERS	+= https://github.com/meta-erlang/meta-erlang.git
+
 # LAYERS  += ../sources/meta-tegra/contrib
 
 
-# MACHINE_BITBAKE_TARGETS = meta-toolchain ${IMAGE_NAME}:do_populate_sdk
+MACHINE_BITBAKE_TARGETS = core-image-minimal
