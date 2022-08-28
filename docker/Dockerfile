@@ -19,11 +19,16 @@ RUN echo en_US.UTF-8 UTF-8 >> /etc/locale.gen && locale-gen && \
         xz-utils debianutils iputils-ping libncurses5-dev libtinfo-dev \
         build-essential sudo wget git-core perl-base \
         libncurses5-dev libtinfo-dev \
-        tmux screen bash-completion vim-tiny \
-        openssh-client rsync ca-certificates \
+        tmux screen bash-completion vim-tiny curl gnupg lsb-release \
+        openssh-client rsync ca-certificates device-tree-compiler docker.io iptables lxc jq awscli \
     && \
+    mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg && \
+    echo \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+    $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null && \
+    apt-get update -y && apt-get install -y docker-ce docker-ce-cli containerd.io && \
     rm -rf /var/lib/apt/lists/*
-
 
 WORKDIR /work
 
