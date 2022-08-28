@@ -14,7 +14,7 @@ Options:
     -m, --machine       Set the MACHINE used for this script
     -i, --image         Set the IMAGE used for this script
 Examples:
-- To deploy a demo-image-base image for jetson-xavier-nx-devkit machine:
+- To deploy a core-image-minimal image for tegra194-evo machine:
   $ $0 --machine tegra194-evo  --image core-image-minimal
 EOF
 }
@@ -61,6 +61,7 @@ rm -rf $tmpdir
 mkdir -p $tmpdir
 echo "Using temp directory $tmpdir"
 currentdir=$(realpath .)
+
 cd $tmpdir
 cp $scriptdir/../build/tmp/deploy/images/${MACHINE}/$deployfile .
 tar -xvf $deployfile

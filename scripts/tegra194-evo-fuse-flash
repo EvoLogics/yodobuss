@@ -1,0 +1,30 @@
+#! /bin/sh
+set -e
+
+PROGNAME=$(basename $0)
+
+usage()
+{
+    cat >&2 <<EOF
+Flash Fuses to a machine connected via local USB
+and in recovery mode.
+Usage: $PROGNAME --machine <MACHINE> --image <IMAGE> --
+Options:
+    -h, --h             Print this usage message
+    -m, --machine       Set the MACHINE used for this script
+    -i, --image         Set the IMAGE used for this script
+Examples:
+- To deploy a core-image-minimal image for tegra194-evo machine:
+  $ $0 --machine tegra194-evo  --image core-image-minimal
+EOF
+}
+
+# get command line options
+SHORTOPTS="hm:i:"
+LONGOPTS="help,machine:,image:"
+
+ARGS=$(getopt --options $SHORTOPTS --longoptions $LONGOPTS --name $PROGNAME -- "$@" )
+if [ $? != 0 ]; then
+   usage
+   exit 1
+fi
