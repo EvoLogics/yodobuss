@@ -1,5 +1,5 @@
 # Image name to build by default
-IMAGE_NAME        = core-image-minimal
+IMAGE_NAME        = evologics-base-image-mx6
 
 # MACHINE is a must in local.conf
 LOCAL_CONF_OPT    = 'MACHINE = "$(MACHINE)"'
@@ -16,6 +16,7 @@ TCLIBC                      = glibc
 CORE_IMAGE_EXTRA_INSTALL    = rng-tools iproute2
 # Very useful software
 CORE_IMAGE_EXTRA_INSTALL   += opkg dropbear bash tar monit procps util-linux \
+                              update-rc.d \
                               e2fsprogs e2fsprogs-resize2fs iputils coreutils
 # Useful software
 CORE_IMAGE_EXTRA_INSTALL   += netcat-openbsd screen tmux socat rsync file \
