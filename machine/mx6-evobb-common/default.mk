@@ -31,6 +31,8 @@ CORE_IMAGE_EXTRA_INSTALL   += gpsd-tiny chrony chronyc soft-hwclock
 CORE_IMAGE_EXTRA_INSTALL   += fuse-exfat exfat-utils
 # Init for read-only rootfs
 CORE_IMAGE_EXTRA_INSTALL   += evo-envinit
+# Bootloader environment utils
+CORE_IMAGE_EXTRA_INSTALL   += u-boot-fw-utils
 
 #CORE_IMAGE_EXTRA_INSTALL  += openssh-client keychain
 #CORE_IMAGE_EXTRA_INSTALL  += ntp kernel-module-pps-gpio
@@ -44,6 +46,8 @@ BBMASK_append               = .*at91.*
 
 $(call local_conf_options_end)
 ################ end build/conf/local.conf options #####################
+
+LOCAL_CONF_OPT += 'PNBLACKLIST[libubootenv] = "Prevents selecting right u-boot-fw-utils"'
 
 # If layer branch not set with "branch=" option, YOCTO_RELEASE will be used.
 # If layer has no such branch, 'master' branch will be used.
