@@ -17,7 +17,7 @@ LOCAL_CONF_OPT   += 'BBMASK   += ".*barebox.*"'
 LOCAL_CONF_OPT   += 'BBMASK   += ".*u-boot.*"'
 
 # Must have for the platform
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " rng-tools iproute2 coreutils grep bridge-utils iputils iperf3 net-tools"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " haveged iproute2 coreutils grep bridge-utils iputils iperf3 net-tools"'
 # Very useful software
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " opkg dropbear bash tar procps util-linux ckermit htop"'
 # Useful software
@@ -25,7 +25,7 @@ LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " netcat-openbsd screen tmux rsync f
 # Hardware tools
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " can-utils i2c-tools pps-tools usbutils ethtool libgpiod pciutils"'
 # FAT/exFAT support
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " fuse-exfat e2fsprogs exfat-utils e2fsprogs-resize2fs parted"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " fuse-exfat e2fsprogs exfat-utils e2fsprogs-resize2fs parted glibc-utils localedef"'
 # Init for read-only rootfs
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " evo-envinit"'
 # Jetson Module Specific
