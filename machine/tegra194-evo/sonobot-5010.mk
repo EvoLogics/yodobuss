@@ -3,7 +3,6 @@ include machine/append-sw-common/object-recognition.mk
 include machine/append-sw-common/tegra-signing.mk
 
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " db-agent"'
-LOCAL_CONF_OPT   += 'IMAGE_CONFIGS = "encrypt"'
 # Enable all 6 cores by setting nvpmodule to mode 2
 LOCAL_CONF_OPT   += 'NVPMODEL_CONFIG_DEFAULT = "2"'
 # Sonobot number
