@@ -13,6 +13,7 @@ LOCAL_CONF_OPT += 'BBMASK            += ".*rauc.*"'
 LOCAL_CONF_OPT += 'BBMASK            += ".*meta-yogurt/recipes-qt/.*"'
 LOCAL_CONF_OPT += 'BBMASK            += ".*meta-yogurt/recipes-images/.*"'
 LOCAL_CONF_OPT += 'BBMASK            += ".*meta-yogurt/recipes-examples/.*"'
+LOCAL_CONF_OPT += 'BBMASK            += ".*fsl-image-mfgtool-initramfs.*"'
 
 # Start recording variables which will go to te local.conf file
 # If you want do redefine the variable VAR previously set, first use:
@@ -91,9 +92,9 @@ MACHINE_BITBAKE_TARGETS = meta-toolchain swupdate-images-evo-comm
 ci-deploy:
 	$(eval CI_DEP_DIR := $(CI_PATH:%/=%)/$(MACHINE)/$(MACHINE_CONFIG))
 	mkdir -p $(CI_DEP_DIR)
-	cp -L deploy-images/barebox.bin $(CI_DEP_DIR) \
+	cp -L images/barebox.bin $(CI_DEP_DIR) \
 		|| exit 1
-	cp -L deploy-images/core-image-minimal-$(MACHINE).sdcard $(CI_DEP_DIR) \
+	cp -L images/core-image-minimal-$(MACHINE).sdcard $(CI_DEP_DIR) \
 		|| exit 1
-	cp -L deploy-images/swupdate-images-evo-comm-$(MACHINE).swu $(CI_DEP_DIR) \
+	cp -L images/swupdate-images-evo-comm-$(MACHINE).swu $(CI_DEP_DIR) \
 		|| exit 1
