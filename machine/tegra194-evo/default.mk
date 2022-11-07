@@ -73,7 +73,7 @@ YOCTO_RELEASE     = dunfell
 
 LAYERS	+= git://git.openembedded.org/meta-openembedded;subdirs=meta-oe,meta-python,meta-networking,meta-filesystems,meta-initramfs,meta-multimedia,meta-perl,meta-webserver
 
-LAYERS 	+= https://github.com/madisongh/meta-tegra.git;branch=${YOCTO_RELEASE}-l4t-r32.5.0;patches=0001-fix-for-python3.5.patch
+LAYERS 	+= https://github.com/madisongh/meta-tegra.git;branch=${YOCTO_RELEASE}-l4t-r32.5.0;patches=0001-fix-for-python3.5.patch;subdirs=.,contrib
 
 LAYERS	+= https://github.com/EvoLogics/meta-evo.git
 
