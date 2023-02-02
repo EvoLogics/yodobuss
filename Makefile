@@ -488,6 +488,23 @@ docker-check:
 	@docker ps > /dev/null
 .PHONY: docker-check
 
+sdk-build: image-check $(PROJ_TOP_DIR)/$(SOURCES_DIR) $(LAYERS_DIR) $(BUILD_DIR) configure $(TARGET_ALL_DEPEND)
+	@$(TIME) $(DOCKER_RUN) "bitbake $(IMAGE_NAME) -c do_populate_sdk"
+.PHONY: sdk-build
+
+sdk-dockerize: sdk-build
+	@ln -f sdk/*$(IMAGE_NAME)*.sh docker/sdk
+	@cd docker && \
+		docker build -f yocto-sdk-atomic.Dockerfile -t $(DOCKER_REGISTRY)/evologics/build-$(MACHINE) . && \
+		{ echo "Image created"; rm sdk; } || \
+		{ echo "Failed to create an image"; rm sdk; exit 1; }
+.PHONY: sdk-dockerize
+
+sdk-devshell: sdk-dockerize
+	$(eval CMD := /bin/bash)
+	@docker run -it --rm $(DOCKER_REGISTRY)/evologics/build-$(MACHINE) $(CMD)
+.PHONY: sdk-devshell
+
 # Naive implementation
 # Does not check for different image formats
 ci-deploy:
