@@ -15,7 +15,7 @@ RUN echo en_US.UTF-8 UTF-8 >> /etc/locale.gen && locale-gen \
     && \
     apt-get install -y \
     ca-certificates \
-    coreutils xz-utils gcc make python3-minimal perl-base findutils file \
+    coreutils xz-utils gcc make python3-minimal perl-base findutils file git \
     && \
     rm -rf /var/lib/apt/lists/*
 
