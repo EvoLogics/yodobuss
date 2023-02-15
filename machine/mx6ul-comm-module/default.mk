@@ -34,7 +34,7 @@ LOCAL_CONF_OPT    += 'PREFERRED_VERSION_nodejs-native_remove = "8.%"'
 # Must have for the platform
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " rng-tools iproute2 coreutils grep bridge-utils iputils iperf3 net-tools"'
 # Very useful software
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " opkg dropbear bash tar monit procps util-linux ckermit"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " opkg dropbear bash tar monit procps util-linux ckermit net-snmp-client "'
 # Useful software
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " netcat-openbsd screen tmux socat rsync file daemonize gzip rlwrap lrzsz bc"'
 # Hardware tools
@@ -93,8 +93,6 @@ ci-deploy:
 	$(eval CI_DEP_DIR := $(CI_PATH:%/=%)/$(MACHINE)/$(MACHINE_CONFIG))
 	mkdir -p $(CI_DEP_DIR)
 	cp -L images/barebox.bin $(CI_DEP_DIR) \
-		|| exit 1
-	cp -L images/core-image-minimal-$(MACHINE).sdcard $(CI_DEP_DIR) \
 		|| exit 1
 	cp -L images/swupdate-images-evo-comm-$(MACHINE).swu $(CI_DEP_DIR) \
 		|| exit 1
