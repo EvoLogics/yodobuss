@@ -55,7 +55,6 @@ LOCAL_CONF_OPT   += 'PREFERRED_VERSION_gstreamer1.0-rtsp-server = "1.14.%"'
 LOCAL_CONF_OPT   += 'PREFERRED_VERSION_gstreamer1.0-vaapi = "1.14.%"'
 LOCAL_CONF_OPT   += 'CUDA_GCCVERSION = "8.%"'
 
-LOCAL_CONF_OPT   += 'LICENSE_FLAGS_WHITELIST_append = " commercial"'
 LOCAL_CONF_OPT   += 'PACKAGE_CLASSES = "package_ipk"'
 
 $(call local_conf_options_end)
@@ -73,7 +72,7 @@ YOCTO_RELEASE     = dunfell
 
 LAYERS	+= git://git.openembedded.org/meta-openembedded;subdirs=meta-oe,meta-python,meta-networking,meta-filesystems,meta-initramfs,meta-multimedia,meta-perl,meta-webserver
 
-LAYERS 	+= https://github.com/madisongh/meta-tegra.git;branch=${YOCTO_RELEASE}-l4t-r32.5.0;patches=0001-fix-for-python3.5.patch;subdirs=.,contrib
+LAYERS 	+= https://github.com/madisongh/meta-tegra.git;patches=0001-fix-for-python3.5.patch;subdirs=.,contrib
 
 LAYERS	+= https://github.com/EvoLogics/meta-evo.git
 
@@ -82,8 +81,6 @@ LAYERS	+= https://github.com/sbabic/meta-swupdate
 LAYERS	+= git://git.yoctoproject.org/meta-virtualization
 
 LAYERS	+= https://github.com/meta-erlang/meta-erlang.git
-
-# LAYERS  += ../sources/meta-tegra/contrib
 
 ####### FIXME ######
 DOCKER_BIND	+= --privileged=true
