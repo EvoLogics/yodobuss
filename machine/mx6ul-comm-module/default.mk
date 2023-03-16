@@ -32,13 +32,13 @@ LOCAL_CONF_OPT    += 'PREFERRED_VERSION_nodejs_remove = "8.%"'
 LOCAL_CONF_OPT    += 'PREFERRED_VERSION_nodejs-native_remove = "8.%"'
 
 # Must have for the platform
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " rng-tools iproute2 coreutils grep bridge-utils iputils iperf3 net-tools"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " rng-tools iproute2 coreutils grep bridge-utils iputils iperf3 net-tools htop "'
 # Very useful software
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " opkg dropbear bash tar monit procps util-linux ckermit net-snmp-client curl iptables"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " opkg dropbear bash tar monit procps util-linux ckermit net-snmp-client curl iptables "'
 # Useful software
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " netcat-openbsd screen tmux socat rsync file daemonize gzip rlwrap lrzsz bc"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " netcat-openbsd screen tmux socat rsync file daemonize gzip rlwrap lrzsz bc "'
 # Hardware tools
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " can-utils i2c-tools pps-tools usbutils ethtool libgpiod"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " can-utils i2c-tools pps-tools usbutils ethtool libgpiod spitools "'
 # Development
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " ltrace strace kernel-devicetree tcl expect tcpdump"'
 # FAT/exFAT support
