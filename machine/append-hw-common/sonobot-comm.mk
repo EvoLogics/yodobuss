@@ -8,4 +8,4 @@ LOCAL_CONF_OPT += 'IMAGE_INSTALL_append = " dune-sonobot-comm-$${EVOSN} dune-son
 
 LOCAL_CONF_OPT += 'hostname_pn-base-files = "sonobot-$${EVOSN}-comm"'
 
-LOCAL_CONF_OPT += 'IMAGE_CONFIGS = "can"'
+LOCAL_CONF_OPT += 'IMAGE_CONFIGS += " can"'
