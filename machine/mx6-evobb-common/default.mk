@@ -20,9 +20,10 @@ CORE_IMAGE_EXTRA_INSTALL   += opkg dropbear bash tar monit procps util-linux \
                               e2fsprogs e2fsprogs-resize2fs iputils coreutils
 # Useful software
 CORE_IMAGE_EXTRA_INSTALL   += netcat-openbsd screen tmux socat rsync file \
-                              daemonize curl rlwrap ckermit iperf3 lrzsz
+                              daemonize curl rlwrap ckermit iperf3 lrzsz ttyd
 # Hardware tools
-CORE_IMAGE_EXTRA_INSTALL   += can-utils cannelloni i2c-tools pps-tools pciutils usbutils ethtool libgpiod
+CORE_IMAGE_EXTRA_INSTALL   += can-utils cannelloni i2c-tools pps-tools pciutils \
+                              usbutils ethtool libgpiod spitools avrdude
 # Development
 CORE_IMAGE_EXTRA_INSTALL   += ltrace strace kernel-devicetree tcl expect
 # Time management
@@ -48,6 +49,7 @@ $(call local_conf_options_end)
 ################ end build/conf/local.conf options #####################
 
 LOCAL_CONF_OPT += 'PNBLACKLIST[libubootenv] = "Prevents selecting right u-boot-fw-utils"'
+LOCAL_CONF_OPT += 'INHERIT += " userconfig "'
 
 # If layer branch not set with "branch=" option, YOCTO_RELEASE will be used.
 # If layer has no such branch, 'master' branch will be used.
@@ -68,4 +70,4 @@ LAYERS           += \
                     git://git.toradex.com/meta-toradex-nxp.git;patches=0001-linux-toradex-change-SRCPV-to-SRCREV.patch \
                     https://github.com/evologics/meta-evo
 
-MACHINE_BITBAKE_TARGETS = u-boot
+MACHINE_BITBAKE_TARGETS = u-boot swupdate-images-evo-tx6
