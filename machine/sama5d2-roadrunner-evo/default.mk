@@ -16,6 +16,7 @@ TCLIBC          = musl
 BBMASK         += .*karo.*
 BBMASK         += .*toradex.*
 BBMASK         += .*linux-fslc.*
+BBMASK         += .*/recipes-fsl/.*
 BBMASK         += .*barebox.*
 BBMASK         += .*-phy[0-9].*
 BBMASK         += .*-phy[0-9].*
@@ -71,6 +72,9 @@ MACHINE_BITBAKE_TARGETS = meta-toolchain swupdate-images-evo packagegroup-erlang
                           evologics-base-image:do_populate_sdk evologics-base-image:do_populate_sdk_ext
 #						  && bitbake evologics-base-image -c do_populate_sdk && bitbake evologics-base-image -c do_populate_sdk_ext
 
+# TODO: move private/evo-updater.* variables to Makefile-s from meta-evo/recipes-support/swupdate-images-evo/swupdate-images-evo-comm_0.1.bb and
+# 		meta-evo/recipes-support/swupdate-images-evo/swupdate-images-evo_0.1.bb SWUPDATE_PRIVATE_KEY and SWUPDATE_PASSWORD_FILE
+# TODO: check ${LUKS_PASS_FILE}
 TARGET_ALL_DEPEND = private/evo-updater.pem \
                     private/evo-updater.pub.pem \
                     private/evo-updater.pass \
@@ -78,6 +82,15 @@ TARGET_ALL_DEPEND = private/evo-updater.pem \
 
 # Needed for creating crypted LUKS partitions with cryptsetup, which create nodes on /dev/mapper/
 DOCKER_BIND      += --privileged=true
+#DOCKER_BIND      += --cap-add=CAP_MKNOD --cap-add=SYS_ADMIN
+#DOCKER_BIND      += --device=/dev/loop-control:/dev/loop-control:rwm
+#DOCKER_BIND      += --device-cgroup-rule="b 7:* rwm"
+#
+#DOCKER_BIND      += --device=/dev/mapper/control:/dev/mapper/control:rwm
+#DOCKER_BIND      += --device-cgroup-rule="b 254:* rwm"
+#
+#DOCKER_BIND      += --security-opt seccomp=unconfined 
+#DOCKER_BIND      += --security-opt apparmor=unconfined
 
 $(TARGET_ALL_DEPEND):
 	@echo "You should copy file \"$(TARGET_ALL_DEPEND)\" to project root directory" >&2
