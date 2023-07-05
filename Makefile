@@ -279,8 +279,11 @@ all: image-check $(PROJ_TOP_DIR)/$(SOURCES_DIR) $(LAYERS_DIR) $(BUILD_DIR) confi
 	@echo 'Result binaries and images you can find at $(BUILD_DIR)/tmp/deploy/'
 .PHONY: all
 
+# help: Invoke developer shell without checking TARGET_ALL_DEPEND. Can run command in CMD variable
+devshell-force: | image-check $(PROJ_TOP_DIR)/$(SOURCES_DIR) $(LAYERS_DIR) $(BUILD_DIR) configure
+
 # help: Invoke developer shell. Can run command in CMD variable
-devshell: image-check $(PROJ_TOP_DIR)/$(SOURCES_DIR) $(LAYERS_DIR) $(BUILD_DIR) configure
+devshell: | $(TARGET_ALL_DEPEND) devshell-force
 	@$(DOCKER_RUN) $(CMD)
 .PHONY: devshell
 
