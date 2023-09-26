@@ -24,9 +24,7 @@ RUN apt-get update -y && \
     git openssh-client openssl rsync wget python3-pip unzip && \
     rm -rf /var/lib/apt/lists/*
 
-ENV SWUG_TAG=v0.2
-
-RUN git -c advice.detachedHead=false clone https://github.com/sbabic/swugenerator.git -b ${SWUG_TAG} /tmp/swugenerator
+RUN git -c advice.detachedHead=false clone https://github.com/sbabic/swugenerator.git /tmp/swugenerator
 
 RUN pip3 install testresources==2.0.1 && \
     pip3 install /tmp/swugenerator && \
