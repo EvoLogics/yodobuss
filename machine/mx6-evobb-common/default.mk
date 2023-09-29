@@ -46,7 +46,8 @@ PRSERV_HOST = localhost:0
 DISTRO_FEATURES_remove = bluetooth wayland
 EXTRA_IMAGE_FEATURES_append = package-management read-only-rootfs
 
-BBMASK_append               = .*at91.*
+BBMASK_append  = .*at91.*
+BBMASK_append += .*-phy[0-9]\..*
 
 $(call local_conf_options_end)
 ################ end build/conf/local.conf options #####################
