@@ -1,7 +1,5 @@
-# Erlang OTP21
-LOCAL_CONF_OPT += 'PREFERRED_VERSION_erlang = "21.1%"'
-LOCAL_CONF_OPT += 'PREFERRED_VERSION_erlang-native = "21.1%"'
-LOCAL_CONF_OPT += 'PACKAGECONFIG_pn-nodejs-native = "ares brotli zlib"'
+include machine/append-sw-common/erlang.mk
+include machine/append-sw-common/nodejs-native.mk
 
 # SiNAPS lives in meta-evo-private
 LAYERS += git@gitlab.evologics.de:bsp/meta-evo-private.git

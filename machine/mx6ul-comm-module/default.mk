@@ -13,6 +13,7 @@ LOCAL_CONF_OPT += 'BBMASK            += ".*rauc.*"'
 LOCAL_CONF_OPT += 'BBMASK            += ".*meta-yogurt/recipes-qt/.*"'
 LOCAL_CONF_OPT += 'BBMASK            += ".*meta-yogurt/recipes-images/.*"'
 LOCAL_CONF_OPT += 'BBMASK            += ".*meta-yogurt/recipes-examples/.*"'
+LOCAL_CONF_OPT += 'BBMASK            += ".*fsl-image-mfgtool-initramfs.*"'
 
 # Start recording variables which will go to te local.conf file
 # If you want do redefine the variable VAR previously set, first use:
@@ -31,13 +32,13 @@ LOCAL_CONF_OPT    += 'PREFERRED_VERSION_nodejs_remove = "8.%"'
 LOCAL_CONF_OPT    += 'PREFERRED_VERSION_nodejs-native_remove = "8.%"'
 
 # Must have for the platform
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " rng-tools iproute2 coreutils grep bridge-utils iputils iperf3 net-tools"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " rng-tools iproute2 coreutils grep bridge-utils iputils iperf3 net-tools htop "'
 # Very useful software
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " opkg dropbear bash tar monit procps util-linux ckermit"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " opkg dropbear bash tar monit procps util-linux ckermit curl iptables cpulimit "'
 # Useful software
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " netcat-openbsd screen tmux socat rsync file daemonize gzip rlwrap lrzsz bc"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " netcat-openbsd screen tmux socat rsync file daemonize gzip rlwrap lrzsz bc "'
 # Hardware tools
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " can-utils i2c-tools pps-tools usbutils ethtool libgpiod"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " can-utils i2c-tools pps-tools usbutils ethtool libgpiod spitools "'
 # Development
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " ltrace strace kernel-devicetree tcl expect tcpdump"'
 # FAT/exFAT support
@@ -91,9 +92,5 @@ MACHINE_BITBAKE_TARGETS = meta-toolchain swupdate-images-evo-comm
 ci-deploy:
 	$(eval CI_DEP_DIR := $(CI_PATH:%/=%)/$(MACHINE)/$(MACHINE_CONFIG))
 	mkdir -p $(CI_DEP_DIR)
-	cp -L deploy-images/barebox.bin $(CI_DEP_DIR) \
-		|| exit 1
-	cp -L deploy-images/core-image-minimal-$(MACHINE).sdcard $(CI_DEP_DIR) \
-		|| exit 1
-	cp -L deploy-images/swupdate-images-evo-comm-$(MACHINE).swu $(CI_DEP_DIR) \
-		|| exit 1
+	cp -L images/barebox.bin $(CI_DEP_DIR)  || exit 1
+	cp -L images/swupdate-images-evo-comm-$(MACHINE).swu $(CI_DEP_DIR) || exit 1

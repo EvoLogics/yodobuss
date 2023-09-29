@@ -25,9 +25,13 @@ useradd ${USER} --shell /bin/bash --create-home \
 
 echo 'ALL ALL = (ALL) NOPASSWD: ALL' >> /etc/sudoers
 
-export HOME=/home/$USER
+export HOME=/home/${USER}
 export WORKDIR="$(pwd)"
-chown -R ${USER_UID}:${USER_GID} /home/${USER} ${WORKDIR}
+chown -R ${USER_UID}:${USER_GID} ${HOME}
+
+if [ ! -e ${HOME}/.ignore_chown_work ]; then
+    chown -R ${USER_UID}:${USER_GID} ${WORKDIR}
+fi
 
 if [ -f ../sources/oe-init-build-env ]; then
     # If local.conf does not exist (first run), create it using oe-init-build-env,

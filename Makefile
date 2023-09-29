@@ -10,8 +10,8 @@
 # Uncomment this if you want use local builded docker image
 #USE_LOCAL_DOCKER_IMAGE=1
 
-# Comment this if you don't want create symlinks in project root directory to usefull directories
-CREATE_USEFULL_SYMLINKS = 1
+# Comment this if you don't want create symlinks in project root directory to useful directories
+CREATE_USEFUL_SYMLINKS = 1
 
 YOCTO_RELEASE     = dunfell
 
@@ -121,8 +121,8 @@ define local_conf_options_end
 			$(if $(filter-out __VARIABLES_OLD $(__VARIABLES_OLD),$(v)), \
 				$(call local_conf_options_set,$(v),$($v)) \
 			) \
-		)
-		$(eval undefine __VARIABLES_OLD)
+		) \
+		$(eval undefine __VARIABLES_OLD) \
 	,)
 endef
 ################### end helpers ###########################
@@ -198,7 +198,7 @@ $(foreach v, $(filter LOCAL_CONF_OPT_%,$(.VARIABLES)),\
 help:
 	@echo Variables:
 	@echo 'USE_LOCAL_DOCKER_IMAGE=1  - Use local builded docker image. Disabled by default'
-	@echo 'CREATE_USEFULL_SYMLINKS=1 - Create symbolic links to usefull directories. Enabled by default'
+	@echo 'CREATE_USEFUL_SYMLINKS=1 - Create symbolic links to useful directories. Enabled by default'
 	@echo
 	@echo LOCAL_CONF_OPT_DL_DIR=\''$(LOCAL_CONF_OPT_DL_DIR)'\'
 	@echo LOCAL_CONF_OPT_SSTATE_DIR=\''$(LOCAL_CONF_OPT_SSTATE_DIR)'\'
@@ -231,10 +231,13 @@ help:
 	@echo ''
 	@echo 'Build binaries, images, SDK and updater for RoadRunner on EvoTiny by bitbake in interactive docker shell'
 	@echo '$$ make MACHINE=sama5d2-roadrunner-evo devshell'
+	@echo ''
+	@echo 'Build everything by using metapackage'
+	@echo 'docker$$ bitbake world-roadrunner-evo'
+	@echo ''
+	@echo 'Or run manually'
 	@echo 'docker$$ bitbake virtual/kernel evologics-base-image swupdate-images-evo meta-toolchain '\
 		'packagegroup-erlang-embedded evologics-base-image:do_populate_sdk evologics-base-image:do_populate_sdk_ext'
-	@echo 'docker$$ bitbake evologics-base-image:do_populate_sdk'
-	@echo 'docker$$ bitbake evologics-base-image:do_populate_sdk_ext'
 	@echo ''
 	@echo 'Update package index of local repository'
 	@echo 'docker$$ bitbake package-index'
@@ -253,7 +256,7 @@ help:
 	@echo 'docker$$ devtool deploy-target dtach toor@10.14.179.1'
 	@echo ''
 	@echo 'Apply changes from external source tree to recipe'
-	@echo 'docker$$ devtool update-recipe --force-patch-refresh --a /work/sources/meta-evo linux-at91'
+	@echo 'docker$$ devtool update-recipe --force-patch-refresh --append /work/sources/meta-evo linux-at91'
 	@echo ''
 	@echo 'Remove a recipe from workspace'
 	@echo 'docker$$ devtool reset linux-at91'
@@ -276,8 +279,11 @@ all: image-check $(PROJ_TOP_DIR)/$(SOURCES_DIR) $(LAYERS_DIR) $(BUILD_DIR) confi
 	@echo 'Result binaries and images you can find at $(BUILD_DIR)/tmp/deploy/'
 .PHONY: all
 
+# help: Invoke developer shell without checking TARGET_ALL_DEPEND. Can run command in CMD variable
+devshell-force: | image-check $(PROJ_TOP_DIR)/$(SOURCES_DIR) $(LAYERS_DIR) $(BUILD_DIR) configure
+
 # help: Invoke developer shell. Can run command in CMD variable
-devshell: image-check $(PROJ_TOP_DIR)/$(SOURCES_DIR) $(LAYERS_DIR) $(BUILD_DIR) configure
+devshell: | $(TARGET_ALL_DEPEND) devshell-force
 	@$(DOCKER_RUN) $(CMD)
 .PHONY: devshell
 
@@ -303,7 +309,7 @@ $(call uniq,$(LAYERS_DIR)):
 $(BUILD_DIR):
 	@mkdir -p $(BUILD_DIR)
 
-ifneq ($(CREATE_USEFULL_SYMLINKS),)
+ifneq ($(CREATE_USEFUL_SYMLINKS),)
     SYMLINK_TO_DIR_images = build/tmp/deploy/images/$(MACHINE)
     SYMLINK_TO_DIR_ipk    = build/tmp/deploy/ipk
     SYMLINK_TO_DIR_sdk    = build/tmp/deploy/sdk
@@ -311,10 +317,10 @@ ifneq ($(CREATE_USEFULL_SYMLINKS),)
     SYMLINK_TO_DIR_kernel-build-artifacts = build/tmp/work-shared/$(MACHINE)/kernel-build-artifacts
 
     $(foreach v, $(filter SYMLINK_TO_DIR_%,$(.VARIABLES)),\
-        $(eval USEFULL_SYMLINKS += $(patsubst SYMLINK_TO_DIR_%,%,$(v))) \
+        $(eval USEFUL_SYMLINKS += $(patsubst SYMLINK_TO_DIR_%,%,$(v))) \
     )
 
-$(USEFULL_SYMLINKS):
+$(USEFUL_SYMLINKS):
 	@ln -fsT $(SYMLINK_TO_DIR_$(@F)) $(@F)
 
 endif
@@ -325,7 +331,7 @@ configure: $(BUILD_DIR)/conf/local.conf
 LOCAL_CONF_MARK = \#=== This block automatically generated. Do not change nothing there ===
 # Build directory is created by oe-init-build-env script,
 # which is called every run from container entrypoint script
-$(BUILD_DIR)/conf/local.conf: $(PROJ_TOP_DIR)/$(SOURCES_DIR) $(LAYERS_DIR) $(BUILD_DIR) $(USEFULL_SYMLINKS)
+$(BUILD_DIR)/conf/local.conf: $(PROJ_TOP_DIR)/$(SOURCES_DIR) $(LAYERS_DIR) $(BUILD_DIR) $(USEFUL_SYMLINKS)
 	@#Update symlink to build directory, in case it was changed by lazyconf
 	@ln -sfT $(BUILD_DIR) build
 
@@ -392,7 +398,7 @@ clean-bbconfigs: clean-links
 
 # help: Remove useful symbolic links
 clean-links:
-	@rm -f build $(USEFULL_SYMLINKS)
+	@rm -f build $(USEFUL_SYMLINKS)
 .PHONY: clean-links
 
 # help: Remove resulting target images and packages
@@ -485,25 +491,26 @@ docker-check:
 	@docker ps > /dev/null
 .PHONY: docker-check
 
-# Naive implementation
-# Does not check for different image formats
-ci-deploy:
-	$(eval CI_DEP_DIR := $(CI_PATH:%/=%)/$(MACHINE)/$(MACHINE_CONFIG))
-	mkdir -p $(CI_DEP_DIR)
-	cp -L deploy-images/$(IMAGE_NAME)-$(MACHINE).tar.bz2 $(CI_DEP_DIR) \
-		|| exit 1
-	cp -L deploy-images/$(MACHINE).dtb $(CI_DEP_DIR) \
-		|| exit 1
-	cp -L deploy-images/modules-$(MACHINE).tgz $(CI_DEP_DIR) \
-		|| exit 1
-	cp -L deploy-images/u-boot-$(MACHINE).bin $(CI_DEP_DIR) \
-		|| exit 1
-	cp -L deploy-images/uImage-$(MACHINE).bin $(CI_DEP_DIR) \
-		|| cp -L deploy-images/zImage-$(MACHINE).bin $(CI_DEP_DIR) \
-		|| exit 1
-.PHONY: ci-deploy
+sdk-build: image-check $(PROJ_TOP_DIR)/$(SOURCES_DIR) $(LAYERS_DIR) $(BUILD_DIR) configure $(TARGET_ALL_DEPEND)
+	@$(TIME) $(DOCKER_RUN) "bitbake $(IMAGE_NAME) -c do_populate_sdk"
+.PHONY: sdk-build
+
+sdk-dockerize: sdk-build
+	@ln -f sdk/*$(IMAGE_NAME)*.sh docker/sdk
+	@cd docker && \
+		docker build -f yocto-sdk-atomic.Dockerfile -t $(DOCKER_REGISTRY)/evologics/build-$(MACHINE) . && \
+		{ echo "Image created"; rm sdk; } || \
+		{ echo "Failed to create an image"; rm sdk; exit 1; }
+.PHONY: sdk-dockerize
+
+sdk-devshell: sdk-dockerize
+	$(eval CMD := /bin/bash)
+	@docker run -it --rm $(DOCKER_REGISTRY)/evologics/build-$(MACHINE) $(CMD)
+.PHONY: sdk-devshell
 
 # help: Login to \$(DOCKER_REGISTRY) registry
 registry-login:
 	@docker login $(DOCKER_REGISTRY)
 .PHONY: registry-login
+
+
