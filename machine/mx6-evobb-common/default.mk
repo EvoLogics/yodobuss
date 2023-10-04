@@ -48,6 +48,10 @@ EXTRA_IMAGE_FEATURES_append = package-management read-only-rootfs
 
 BBMASK_append  = .*at91.*
 BBMASK_append += .*-phy[0-9]\..*
+BBMASK_append += .*tegra.*
+BBMASK_append += .*docker-ce.*
+BBMASK_append += .*systemd-conf.*
+BBMASK_append += .*rebar3.*
 
 $(call local_conf_options_end)
 ################ end build/conf/local.conf options #####################
@@ -57,7 +61,7 @@ LOCAL_CONF_OPT += 'INHERIT += " userconfig "'
 
 # If layer branch not set with "branch=" option, YOCTO_RELEASE will be used.
 # If layer has no such branch, 'master' branch will be used.
-YOCTO_RELEASE     = thud
+YOCTO_RELEASE     = dunfell
 
 # Layers to download and add to the configuration.
 # Layers must me in right order, layers used by other layers must become first.
@@ -67,11 +71,7 @@ YOCTO_RELEASE     = thud
 # 	* subdirs=<subdirectory with meta-layer>[,<subdirectory with meta-layer>]
 LAYERS           += \
                     git://git.openembedded.org/meta-openembedded;subdirs=meta-oe,meta-python,meta-networking,meta-filesystems \
-                    https://git.yoctoproject.org/git/meta-freescale \
-                    https://github.com/Freescale/meta-freescale-3rdparty \
                     https://github.com/sbabic/meta-swupdate \
-                    git://git.toradex.com/meta-toradex-bsp-common.git \
-                    git://git.toradex.com/meta-toradex-nxp.git;patches=0001-linux-toradex-change-SRCPV-to-SRCREV.patch \
                     https://github.com/evologics/meta-evo
 
 MACHINE_BITBAKE_TARGETS = u-boot swupdate-images-evo-tx6
