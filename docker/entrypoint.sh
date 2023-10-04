@@ -30,6 +30,9 @@ export WORKDIR="$(pwd)"
 chown -R ${USER_UID}:${USER_GID} ${HOME}
 
 if [ ! -e ${HOME}/.ignore_chown_work ]; then
+    echo
+    echo "!!! Changing ${WORKDIR} permissions to ${USER_UID}:${USER_GID} !!!"
+    echo
     chown -R ${USER_UID}:${USER_GID} ${WORKDIR}
 fi
 
