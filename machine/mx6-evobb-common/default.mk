@@ -23,6 +23,10 @@ CORE_IMAGE_EXTRA_INSTALL   += netcat-openbsd screen tmux socat rsync file \
                               htop tcpdump iptables \
                               daemonize curl rlwrap ckermit iperf3 lrzsz ttyd \
                               rtklib-cli-str2str zerotier mosquitto-clients
+
+# Locales
+CORE_IMAGE_EXTRA_INSTALL   += glibc-utils localedef
+
 # Hardware tools
 CORE_IMAGE_EXTRA_INSTALL   += can-utils cannelloni i2c-tools pps-tools pciutils \
                               usbutils ethtool libgpiod spitools avrdude uhubctl \
