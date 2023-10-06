@@ -1,5 +1,5 @@
 FROM debian:buster
-MAINTAINER Maksym Maksym <komar@evologics.de>
+MAINTAINER Maksym Komar <komar@evologics.de>
 
 ENV DEBIAN_FRONTEND noninteractive
 
