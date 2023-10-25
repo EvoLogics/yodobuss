@@ -13,37 +13,37 @@ PACKAGE_CLASSES             = package_ipk
 TCLIBC                      = glibc
 
 # Must have for the platform
-CORE_IMAGE_EXTRA_INSTALL    = rng-tools iproute2
+EVO_BASE_EXTRA_INSTALL      = rng-tools iproute2
 # Very useful software
-CORE_IMAGE_EXTRA_INSTALL   += opkg dropbear bash tar monit procps util-linux \
+EVO_BASE_EXTRA_INSTALL     += opkg dropbear bash tar monit procps util-linux \
                               update-rc.d \
                               e2fsprogs e2fsprogs-resize2fs iputils coreutils limitcpu
 # Useful software
-CORE_IMAGE_EXTRA_INSTALL   += netcat-openbsd screen tmux socat rsync file \
+EVO_BASE_EXTRA_INSTALL     += netcat-openbsd screen tmux socat rsync file \
                               htop tcpdump iptables \
                               daemonize curl rlwrap ckermit iperf3 lrzsz ttyd \
                               rtklib-cli-str2str zerotier mosquitto-clients
 
 # Locales
-CORE_IMAGE_EXTRA_INSTALL   += glibc-utils localedef
+EVO_BASE_EXTRA_INSTALL     += glibc-utils localedef
 
 # Hardware tools
-CORE_IMAGE_EXTRA_INSTALL   += can-utils cannelloni i2c-tools pps-tools pciutils \
+EVO_BASE_EXTRA_INSTALL     += can-utils cannelloni i2c-tools pps-tools pciutils \
                               usbutils ethtool libgpiod spitools avrdude uhubctl \
                               quectel-cm
 # Development
-CORE_IMAGE_EXTRA_INSTALL   += ltrace strace kernel-devicetree tcl expect
+EVO_BASE_EXTRA_INSTALL     += ltrace strace kernel-devicetree tcl expect
 # Time management
-CORE_IMAGE_EXTRA_INSTALL   += gpsd-tiny chrony chronyc soft-hwclock
+EVO_BASE_EXTRA_INSTALL     += gpsd-tiny chrony chronyc soft-hwclock
 # FAT/exFAT support
-CORE_IMAGE_EXTRA_INSTALL   += fuse-exfat exfat-utils
+EVO_BASE_EXTRA_INSTALL     += fuse-exfat exfat-utils
 # Init for read-only rootfs
-CORE_IMAGE_EXTRA_INSTALL   += evo-envinit
+EVO_BASE_EXTRA_INSTALL     += evo-envinit
 # Bootloader environment utils
-CORE_IMAGE_EXTRA_INSTALL   += u-boot-fw-utils
+EVO_BASE_EXTRA_INSTALL     += u-boot-fw-utils
 
-#CORE_IMAGE_EXTRA_INSTALL  += openssh-client keychain
-#CORE_IMAGE_EXTRA_INSTALL  += ntp kernel-module-pps-gpio
+#EVO_BASE_EXTRA_INSTALL    += openssh-client keychain
+#EVO_BASE_EXTRA_INSTALL    += ntp kernel-module-pps-gpio
 
 PRSERV_HOST = localhost:0
 
