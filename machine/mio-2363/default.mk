@@ -20,8 +20,7 @@ EVO_BASE_EXTRA_INSTALL     += opkg dropbear \
                               update-rc.d \
                               limitcpu
 # Useful software
-EVO_BASE_EXTRA_INSTALL     += \
-                              iptables \
+EVO_BASE_EXTRA_INSTALL     += iptables \
                               ttyd \
                               rtklib-cli-str2str zerotier mosquitto-clients
 
@@ -32,6 +31,7 @@ EVO_BASE_EXTRA_INSTALL     += glibc-utils localedef
 EVO_BASE_EXTRA_INSTALL     += can-utils cannelloni i2c-tools \
                               spitools avrdude uhubctl \
                               quectel-cm
+
 # Development
 EVO_BASE_EXTRA_INSTALL     += tcl expect
 # Time management
@@ -47,8 +47,8 @@ EVO_BASE_EXTRA_INSTALL     += evo-envinit
 PRSERV_HOST = localhost:0
 
 DISTRO_FEATURES_remove = bluetooth wayland
-#EXTRA_IMAGE_FEATURES_append = package-management read-only-rootfs
-EXTRA_IMAGE_FEATURES_append = package-management
+EXTRA_IMAGE_FEATURES_append = package-management read-only-rootfs
+#EXTRA_IMAGE_FEATURES_append = package-management
 
 BBMASK_append  = .*at91.*
 BBMASK_append += .*-phy[0-9]\..*

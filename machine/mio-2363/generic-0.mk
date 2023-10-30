@@ -8,6 +8,7 @@ include machine/append-hw-common/evohw-nd.mk
 
 # Software common defs
 #include machine/append-sw-common/deltat.mk
+include machine/append-sw-common/docker.mk
 #include machine/append-sw-common/dune.mk
 #include machine/append-sw-common/evotools.mk
 #include machine/append-sw-common/evohw-defs.mk
