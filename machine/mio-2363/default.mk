@@ -13,7 +13,7 @@ PACKAGE_CLASSES             = package_ipk
 TCLIBC                      = glibc
 
 # Must have for the platform
-EVO_BASE_EXTRA_INSTALL      = rng-tools
+EVO_BASE_EXTRA_INSTALL      = rng-tools efibootmgr
 #grub grub-efi grub-bootconf
 # Very useful software
 EVO_BASE_EXTRA_INSTALL     += opkg dropbear \
@@ -52,8 +52,6 @@ EXTRA_IMAGE_FEATURES_append = package-management read-only-rootfs
 
 BBMASK_append  = .*at91.*
 BBMASK_append += .*-phy[0-9]\..*
-BBMASK_append += .*tegra.*
-BBMASK_append += .*docker-ce.*
 BBMASK_append += .*systemd-conf.*
 BBMASK_append += .*rebar3.*
 
