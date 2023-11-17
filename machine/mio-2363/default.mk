@@ -22,7 +22,7 @@ EVO_BASE_EXTRA_INSTALL     += opkg dropbear \
 # Useful software
 EVO_BASE_EXTRA_INSTALL     += iptables \
                               ttyd \
-                              rtklib-cli-str2str zerotier mosquitto-clients
+                              rtklib-cli-str2str zerotier mosquitto-clients sftpgo websocat
 
 # Locales
 EVO_BASE_EXTRA_INSTALL     += glibc-utils localedef
@@ -74,7 +74,7 @@ YOCTO_RELEASE     = dunfell
 LAYERS           += \
                     git://git.openembedded.org/meta-openembedded;subdirs=meta-oe,meta-python,meta-networking,meta-filesystems \
                     https://github.com/sbabic/meta-swupdate \
-					https://github.com/YoeDistro/meta-intel.git \
+                    https://github.com/YoeDistro/meta-intel.git \
                     https://github.com/evologics/meta-evo
 
 #MACHINE_BITBAKE_TARGETS = swupdate-images-evo-mio
