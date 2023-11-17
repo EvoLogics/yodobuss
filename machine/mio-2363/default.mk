@@ -58,12 +58,12 @@ BBMASK_append += .*rebar3.*
 $(call local_conf_options_end)
 ################ end build/conf/local.conf options #####################
 
-LOCAL_CONF_OPT += 'PNBLACKLIST[libubootenv] = "Prevents selecting right u-boot-fw-utils"'
+LOCAL_CONF_OPT += 'SKIP_RECIPE[libubootenv] = "Prevents selecting right u-boot-fw-utils"'
 #LOCAL_CONF_OPT += 'INHERIT += " userconfig "'
 
 # If layer branch not set with "branch=" option, YOCTO_RELEASE will be used.
 # If layer has no such branch, 'master' branch will be used.
-YOCTO_RELEASE     = dunfell
+YOCTO_RELEASE     = kirkstone
 
 # Layers to download and add to the configuration.
 # Layers must me in right order, layers used by other layers must become first.
