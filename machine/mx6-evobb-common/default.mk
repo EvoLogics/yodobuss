@@ -19,7 +19,7 @@ EVO_BASE_EXTRA_INSTALL     += opkg dropbear \
                               update-rc.d \
                               limitcpu
 # Useful software
-EVO_BASE_EXTRA_INSTALL     += lighttpd \
+EVO_BASE_EXTRA_INSTALL     += \
                               iptables \
                               ttyd \
                               rtklib-cli-str2str zerotier mosquitto-clients
