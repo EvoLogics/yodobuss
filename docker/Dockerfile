@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:bookworm
 MAINTAINER Maksym Maksym <komar@evologics.de>
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -15,12 +15,13 @@ RUN echo en_US.UTF-8 UTF-8 >> /etc/locale.gen && locale-gen && \
     \
     apt-get update -y && apt-get install -y locales && \
     apt-get install -y file gawk wget git-core diffstat unzip texinfo gcc-multilib \
-        build-essential chrpath socat cpio python python3 python3-pip python3-pexpect \
+        build-essential chrpath socat cpio python3 python3-pip python3-pexpect \
         xz-utils debianutils iputils-ping libncurses5-dev libtinfo-dev \
         build-essential sudo wget git-core perl-base \
         libncurses5-dev libtinfo-dev \
         tmux screen bash-completion vim-tiny \
         openssh-client rsync ca-certificates \
+        zstd lz4 \
     && \
     rm -rf /var/lib/apt/lists/*
 
