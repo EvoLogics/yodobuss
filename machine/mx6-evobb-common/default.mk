@@ -34,7 +34,7 @@ EVO_BASE_EXTRA_INSTALL     += can-utils cannelloni i2c-tools \
 # Development
 EVO_BASE_EXTRA_INSTALL     += kernel-devicetree tcl expect
 # Time management
-EVO_BASE_EXTRA_INSTALL     += gpsd-tiny soft-hwclock
+EVO_BASE_EXTRA_INSTALL     += gpsd gpsd-conf soft-hwclock
 # FAT/exFAT support
 EVO_BASE_EXTRA_INSTALL     += fuse-exfat exfat-utils
 # Init for read-only rootfs
@@ -49,6 +49,7 @@ PRSERV_HOST = localhost:0
 
 DISTRO_FEATURES_remove = bluetooth wayland
 EXTRA_IMAGE_FEATURES_append = package-management read-only-rootfs
+PACKAGECONFIG_gpsd = tiny
 
 BBMASK_append  = .*at91.*
 BBMASK_append += .*-phy[0-9]\..*
