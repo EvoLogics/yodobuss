@@ -13,7 +13,7 @@
 # Comment this if you don't want create symlinks in project root directory to useful directories
 CREATE_USEFUL_SYMLINKS = 1
 
-YOCTO_RELEASE     = dunfell
+YOCTO_RELEASE     = kirkstone
 
 DOCKER_REGISTRY   = docker.evologics.de
 DOCKER_IMAGE      = evologics/yocto:$(YOCTO_RELEASE)
