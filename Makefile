@@ -342,8 +342,8 @@ $(BUILD_DIR)/conf/local.conf: $(PROJ_TOP_DIR)/$(SOURCES_DIR) $(LAYERS_DIR) $(BUI
 	@echo '$(LOCAL_CONF_MARK)'                        >> $(BUILD_DIR)/conf/local.conf
 	@printf "%s\n" $(LOCAL_CONF_OPT)                  >> $(BUILD_DIR)/conf/local.conf
 	@echo '$(LOCAL_CONF_MARK)'                        >> $(BUILD_DIR)/conf/local.conf
-	@sed -i -r 's|([A-Z])_([a-z])(.*=)|\1:\2\3|g'        $(BUILD_DIR)/conf/local.conf
-	@sed -i -r 's|([a-z])_([a-z])(.*=)|\1:\2\3|g'        $(BUILD_DIR)/conf/local.conf
+	@sed -i -r '/^PREFERRED/b; s|([A-Z])_([a-z])(.*=)|\1:\2\3|g'        $(BUILD_DIR)/conf/local.conf
+	@sed -i -r '/^PREFERRED/b; s|([a-z])_([a-z])(.*=)|\1:\2\3|g'        $(BUILD_DIR)/conf/local.conf
 	@$(DOCKER_RUN) "bitbake-layers add-layer $(addprefix $(DOCKER_WORK_DIR)/,$(LAYERS_DIR))"
 
 	@echo Update .config.mk
