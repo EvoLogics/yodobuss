@@ -22,7 +22,7 @@ EVO_BASE_EXTRA_INSTALL     += opkg dropbear \
 # Useful software
 EVO_BASE_EXTRA_INSTALL     += iptables \
                               ttyd \
-                              rtklib-cli-str2str zerotier mosquitto-clients sftpgo websocat
+                              rtklib-cli-str2str zerotier mosquitto-clients
 
 # Locales
 EVO_BASE_EXTRA_INSTALL     += glibc-utils localedef
@@ -35,7 +35,7 @@ EVO_BASE_EXTRA_INSTALL     += can-utils cannelloni i2c-tools \
 # Development
 EVO_BASE_EXTRA_INSTALL     += tcl expect
 # Time management
-EVO_BASE_EXTRA_INSTALL     += gpsd-tiny
+EVO_BASE_EXTRA_INSTALL     += gpsd gpsd-conf
 # FAT/exFAT support
 EVO_BASE_EXTRA_INSTALL     += fuse-exfat exfat-utils
 # Init for read-only rootfs
@@ -48,6 +48,7 @@ PRSERV_HOST = localhost:0
 
 DISTRO_FEATURES_remove = bluetooth wayland
 EXTRA_IMAGE_FEATURES_append = package-management read-only-rootfs
+PACKAGECONFIG_gpsd = tiny
 #EXTRA_IMAGE_FEATURES_append = package-management
 
 BBMASK_append  = .*at91.*
