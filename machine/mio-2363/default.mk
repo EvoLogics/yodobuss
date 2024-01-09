@@ -22,7 +22,8 @@ EVO_BASE_EXTRA_INSTALL     += opkg dropbear \
 # Useful software
 EVO_BASE_EXTRA_INSTALL     += iptables \
                               ttyd \
-                              rtklib-cli-str2str zerotier mosquitto-clients
+                              rtklib-cli-str2str zerotier mosquitto-clients sftpgo \
+                              homer homer-assets
 
 # Locales
 EVO_BASE_EXTRA_INSTALL     += glibc-utils localedef
