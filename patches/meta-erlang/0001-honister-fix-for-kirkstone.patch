@@ -1,0 +1,38 @@
+From b7836233e9b60ee5fa09f2d989175dc3b2b1efd4 Mon Sep 17 00:00:00 2001
+From: Victor Voronin <viktor.voronin@evologics.de>
+Date: Fri, 1 Dec 2023 13:37:07 +0100
+Subject: [PATCH] fix for kirkstone
+
+---
+ conf/layer.conf                    | 2 +-
+ recipes-devtools/erlang/erlang.inc | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/conf/layer.conf b/conf/layer.conf
+index a28c83e..e13a2d4 100644
+--- a/conf/layer.conf
++++ b/conf/layer.conf
+@@ -7,7 +7,7 @@ BBFILES += "${LAYERDIR}/recipes-*/*/*.bb ${LAYERDIR}/recipes-*/*/*.bbappend"
+ BBFILE_COLLECTIONS += "erlang-layer"
+ BBFILE_PATTERN_erlang-layer := "^${LAYERDIR}/"
+ BBFILE_PRIORITY_erlang-layer = "7"
+-LAYERSERIES_COMPAT_erlang-layer = "honister"
++LAYERSERIES_COMPAT_erlang-layer = "honister kirkstone"
+ 
+ LAYERDEPENDS_erlang-layer = "core"
+ 
+diff --git a/recipes-devtools/erlang/erlang.inc b/recipes-devtools/erlang/erlang.inc
+index c91130a..ff23ad7 100644
+--- a/recipes-devtools/erlang/erlang.inc
++++ b/recipes-devtools/erlang/erlang.inc
+@@ -11,6 +11,7 @@ DEPENDS:append:class-target = " erlang-native ncurses zlib openssl"
+ DEPENDS:append:class-native = " ncurses-native zlib-native openssl-native"
+ DEPENDS:append:class-nativesdk = " erlang-native nativesdk-zlib nativesdk-openssl nativesdk-ncurses"
+ 
++INSANE_SKIP += "configure-unsafe"
+ 
+ SRC_URI = "git://github.com/erlang/otp;branch=master;protocol=https \
+     file://environment.d-erlang.sh.in"
+-- 
+2.25.1
+
