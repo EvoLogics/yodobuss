@@ -1,22 +1,23 @@
 # Image name to build by default
-IMAGE_NAME        = core-image-minimal
+IMAGE_NAME          = evologics-base-image-mx
 
 # MACHINE is a must in local.conf
-LOCAL_CONF_OPT    = 'MACHINE = "$(MACHINE)"'
+LOCAL_CONF_OPT      = 'MACHINE = "$(MACHINE)"'
 
-LOCAL_CONF_OPT    += 'DISTRO  = "yogurt"'
+LOCAL_CONF_OPT      += 'DISTRO  = "yogurt"'
 
 ################ begin build/conf/local.conf options ###################
 $(call local_conf_options_begin)
 
-LOCAL_CONF_OPT += 'BBMASK            += ".*karo.*"'
-LOCAL_CONF_OPT += 'BBMASK            += ".*toradex.*"'
-LOCAL_CONF_OPT += 'BBMASK            += ".*at91.*"'
-LOCAL_CONF_OPT += 'BBMASK            += ".*rauc.*"'
-LOCAL_CONF_OPT += 'BBMASK            += ".*meta-yogurt/recipes-qt/.*"'
-LOCAL_CONF_OPT += 'BBMASK            += ".*meta-yogurt/recipes-images/.*"'
-LOCAL_CONF_OPT += 'BBMASK            += ".*meta-yogurt/recipes-examples/.*"'
-LOCAL_CONF_OPT += 'BBMASK            += ".*fsl-image-mfgtool-initramfs.*"'
+BBMASK_append       = .*karo.*
+BBMASK_append       += .*toradex.*
+BBMASK_append       += .*at91.*
+BBMASK_append       += .*rauc.*
+BBMASK_append       += .*meta-yogurt/recipes-qt/.*
+BBMASK_append       += .*meta-yogurt/recipes-images/.*
+BBMASK_append       += .*meta-yogurt/recipes-examples/.*
+BBMASK_append       += .*fsl-image-mfgtool-initramfs.*
+BBMASK_append       += .*rebar3.*
 
 # Start recording variables which will go to te local.conf file
 # If you want do redefine the variable VAR previously set, first use:
@@ -28,38 +29,38 @@ OLDVARS := $(sort $(.VARIABLES))
 # default is 'menuconfig', 'nconfig' has more features.
 # busybox only supports menuconfig
 
-LOCAL_CONF_OPT    += 'KCONFIG_CONFIG_COMMAND = "nconfig"'
-LOCAL_CONF_OPT    += 'KCONFIG_CONFIG_COMMAND_pn-busybox = "menuconfig"'
+KCONFIG_CONFIG_COMMAND            = nconfig
+KCONFIG_CONFIG_COMMAND_pn-busybox = menuconfig
 
 # Must have for the platform
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " rng-tools iproute2 coreutils grep bridge-utils iputils iperf3 net-tools htop "'
+EVO_BASE_EXTRA_INSTALL      = rng-tools grep bridge-utils	htop
 # Very useful software
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " opkg dropbear bash tar monit procps util-linux ckermit curl iptables cpulimit "'
-# Useful software
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " netcat-openbsd screen tmux socat rsync file daemonize gzip rlwrap lrzsz bc "'
+EVO_BASE_EXTRA_INSTALL      += opkg packagegroup-core-ssh-openssh iptables limitcpu
 # Hardware tools
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " can-utils i2c-tools pps-tools usbutils ethtool libgpiod spitools "'
-# Development
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " ltrace strace kernel-devicetree tcl expect tcpdump"'
+EVO_BASE_EXTRA_INSTALL      += can-utils i2c-tools spitools cannelloni uhubctl
+# Useful software
+EVO_BASE_EXTRA_INSTALL      += gzip bc kernel-devicetree tcl expect tcpdump ttyd
 # FAT/exFAT support
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " fuse-exfat e2fsprogs exfat-utils e2fsprogs-resize2fs parted"'
+EVO_BASE_EXTRA_INSTALL      += fuse-exfat exfat-utils parted
 # Init for read-only rootfs
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " evo-envinit"'
+EVO_BASE_EXTRA_INSTALL      += evo-envinit
 # Communication Module Specific
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " gpsd chrony dt-utils dt-utils-barebox-state soft-hwclock"'
+EVO_BASE_EXTRA_INSTALL      += gpsd dt-utils dt-utils-barebox-state soft-hwclock
+# Locales
+EVO_BASE_EXTRA_INSTALL      += glibc-utils localedef
 # Read only rootfs
-LOCAL_CONF_OPT   += 'EXTRA_IMAGE_FEATURES_append = " package-management read-only-rootfs"'
+EXTRA_IMAGE_FEATURES_append = package-management read-only-rootfs
+DISTRO_FEATURES_remove      = bluetooth wayland alsa
 # Add 100MB Extra to Rootfs
-LOCAL_CONF_OPT   += 'IMAGE_ROOTFS_EXTRA_SPACE = "100000"'
-
-LOCAL_CONF_OPT   += 'PACKAGE_CLASSES = "package_ipk"'
-
-LOCAL_CONF_OPT   += 'TCLIBC = "glibc"'
-
+IMAGE_ROOTFS_EXTRA_SPACE    = 100000
+# Define what we need
+PACKAGE_CLASSES             = package_ipk
+TCLIBC                      = glibc
+LOCAL_CONF_OPT              += 'INHERIT += " userconfig "'
+PRSERV_HOST                 = localhost:0
 
 $(call local_conf_options_end)
 ################ end build/conf/local.conf options #####################
-
 # If layer branch not set with "branch=" option, YOCTO_RELEASE will be used.
 # If layer has no such branch, 'master' branch will be used.
 YOCTO_RELEASE     = dunfell
@@ -82,7 +83,6 @@ LAYERS	+= https://git.phytec.de/meta-yogurt;patches=0001-remove-dependency-on-qt
 LAYERS	+= https://github.com/sbabic/meta-swupdate
 
 LAYERS	+= https://github.com/meta-erlang/meta-erlang.git
-
 
 MACHINE_BITBAKE_TARGETS = meta-toolchain swupdate-images-evo-comm
 
