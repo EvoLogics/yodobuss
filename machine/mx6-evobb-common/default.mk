@@ -77,6 +77,7 @@ YOCTO_RELEASE     = kirkstone
 LAYERS           += \
                     git://git.openembedded.org/meta-openembedded;subdirs=meta-oe,meta-python,meta-networking,meta-filesystems \
                     https://github.com/sbabic/meta-swupdate \
+                    https://git.yoctoproject.org/meta-lts-mixins;branch=kirkstone/go \
                     https://github.com/evologics/meta-evo
 
 MACHINE_BITBAKE_TARGETS = u-boot swupdate-images-evo-tx6
