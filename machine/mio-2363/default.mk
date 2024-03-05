@@ -31,7 +31,7 @@ EVO_BASE_EXTRA_INSTALL     += glibc-utils localedef
 # Hardware tools
 EVO_BASE_EXTRA_INSTALL     += can-utils cannelloni i2c-tools \
                               spitools avrdude uhubctl \
-                              quectel-cm
+                              quectel-cm mbes-tools
 
 # Development
 EVO_BASE_EXTRA_INSTALL     += tcl expect
@@ -77,6 +77,7 @@ LAYERS           += \
                     git://git.openembedded.org/meta-openembedded;subdirs=meta-oe,meta-python,meta-networking,meta-filesystems \
                     https://github.com/sbabic/meta-swupdate \
                     https://github.com/YoeDistro/meta-intel.git \
+                    https://git.yoctoproject.org/meta-lts-mixins;branch=kirkstone/go \
                     https://github.com/evologics/meta-evo
 
 #MACHINE_BITBAKE_TARGETS = swupdate-images-evo-mio
