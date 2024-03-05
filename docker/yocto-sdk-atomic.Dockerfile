@@ -25,7 +25,8 @@ RUN chmod +x /tmp/sdk && \
 
 ADD yocto-sdk-atomic.entrypoint.sh /entrypoint.sh
 RUN export SRCENV=$(tail -n1 /tmp/sdk.log | sed 's/\ $ //') && \
-    sed -i "s|#SRCENV#|${SRCENV}|" /entrypoint.sh \
+    sed -i "s|#SRCENV#|${SRCENV}|" /entrypoint.sh && \
+    sed -r -i '/FLAGS/ s|-g\s||' $(echo "${SRCENV}" | awk '{print $2}') \
     && \
     rm -rf /tmp/sdk*
 
