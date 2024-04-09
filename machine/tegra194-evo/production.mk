@@ -5,3 +5,4 @@ LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " ltrace strace kernel-devicetree tc
 
 LOCAL_CONF_OPT    += 'hostname_pn-base-files = "production-image"'
 
+LOCAL_CONF_OPT += 'NVPMODEL_CONFIG_DEFAULT = "2"'
