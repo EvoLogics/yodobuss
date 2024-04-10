@@ -71,10 +71,11 @@ LOCAL_CONF_OPT   += 'LICENSE_FLAGS_WHITELIST_append = " commercial commercial_gs
 
 LOCAL_CONF_OPT   += 'PACKAGE_CLASSES = "package_ipk"'
 
+LOCAL_CONF_OPT   += 'SDKGCCVERSION = "9.%"'
+LOCAL_CONF_OPT   += 'GCCVERSION_aarch64 = "9.%"'
 # CUDA 10.2 requires gcc 7 or 8
-LOCAL_CONF_OPT   += 'GCCVERSION_aarch64 = "8.%"'
-#LOCAL_CONF_OPT   += 'SDKGCCVERSION = "9.%"'
 LOCAL_CONF_OPT   += 'CUDA_GCCVERSION = "8.%"'
+
 
 $(call local_conf_options_end)
 ################ end build/conf/local.conf options #####################
