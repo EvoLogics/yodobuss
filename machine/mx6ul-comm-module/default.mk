@@ -36,7 +36,7 @@ LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " rng-tools iproute2 coreutils grep 
 # Very useful software
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " opkg dropbear bash tar monit procps util-linux ckermit curl iptables cpulimit "'
 # Useful software
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " netcat-openbsd screen tmux socat rsync file daemonize gzip rlwrap lrzsz bc "'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " netcat-openbsd screen tmux socat rsync file daemonize gzip rlwrap lrzsz bc ca-certificates "'
 # Hardware tools
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " can-utils i2c-tools pps-tools usbutils ethtool libgpiod spitools "'
 # Development
@@ -47,6 +47,11 @@ LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " fuse-exfat e2fsprogs exfat-utils e
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " evo-envinit"'
 # Communication Module Specific
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " gpsd-tiny chrony dt-utils dt-utils-barebox-state soft-hwclock"'
+
+# Configure curl to use openssl and not gnutls
+LOCAL_CONF_OPT   += 'PACKAGECONFIG_pn-curl_append = " ssl"'
+LOCAL_CONF_OPT   += 'PACKAGECONFIG_pn-curl_remove = " gnutls"'
+
 # Read only rootfs
 LOCAL_CONF_OPT   += 'EXTRA_IMAGE_FEATURES_append = " package-management read-only-rootfs"'
 # Add 100MB Extra to Rootfs
