@@ -20,7 +20,7 @@ LOCAL_CONF_OPT   += 'BBMASK   += ".*libdevmapper_2.03.14*"'
 
 
 # Must have for the platform
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " haveged iproute2 coreutils grep bridge-utils iputils iperf3 net-tools"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " haveged iproute2 coreutils grep bridge-utils iputils iperf3 net-tools socat "'
 # Very useful software
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " opkg dropbear bash tar procps util-linux ckermit htop tcpdump strace"'
 # Useful software
@@ -40,8 +40,8 @@ LOCAL_CONF_OPT   += 'EXTRA_IMAGE_FEATURES_append = " package-management read-onl
 
 LOCAL_CONF_OPT   += 'TCLIBC = "glibc"'
 # Python prefered version
-LOCAL_CONF_OPT   += 'PREFERRED_VERSION_python3 = "3.8%"'
-LOCAL_CONF_OPT   += 'PREFERRED_VERSION_python3-native = "3.8%"'
+#LOCAL_CONF_OPT   += 'PREFERRED_VERSION_python3 = "3.8%"'
+#LOCAL_CONF_OPT   += 'PREFERRED_VERSION_python3-native = "3.8%"'
 # Swupdate prefered version
 LOCAL_CONF_OPT   += 'PREFERRED_VERSION_swupdate = "2021.11"'
 LOCAL_CONF_OPT   += 'PREFERRED_RPROVIDER_libdevmapper = "lvm2"'
@@ -70,12 +70,13 @@ LOCAL_CONF_OPT   += 'PREFERRED_VERSION_gstreamer1.0-plugins-nvvidconv = "1.14.%"
 LOCAL_CONF_OPT   += 'LICENSE_FLAGS_WHITELIST_append = " commercial commercial_gstreamer1.0-omx-tegra"'
 
 LOCAL_CONF_OPT   += 'PACKAGE_CLASSES = "package_ipk"'
+LOCAL_CONF_OPT   += 'TOOLCHAIN_HOST_TASK_append = " nativesdk-packagegroup-cuda-sdk-host"'
+LOCAL_CONF_OPT   += 'SDKIMAGE_INSTALL_COMPLEMENTARY_append = " opencv-staticdev"'
 
 LOCAL_CONF_OPT   += 'SDKGCCVERSION = "9.%"'
-LOCAL_CONF_OPT   += 'GCCVERSION_aarch64 = "9.%"'
+LOCAL_CONF_OPT   += 'GCCVERSION_aarch64 = "8.%"'
 # CUDA 10.2 requires gcc 7 or 8
 LOCAL_CONF_OPT   += 'CUDA_GCCVERSION = "8.%"'
-
 
 $(call local_conf_options_end)
 ################ end build/conf/local.conf options #####################
@@ -102,6 +103,8 @@ LAYERS	+= git://git.yoctoproject.org/meta-virtualization
 
 LAYERS	+= https://github.com/meta-erlang/meta-erlang.git
 
+LAYERS  += https://github.com/OE4T/meta-tegra-community.git
+
 ####### FIXME ######
 DOCKER_BIND	+= --privileged=true
 DOCKER_BIND	+= -v /var/run/docker.sock:/var/run/docker.sock
@@ -109,6 +112,7 @@ DOCKER_BIND	+= -v /etc/group:/etc/group:ro
 DOCKER_BIND	+= -v /etc/passwd:/etc/passwd:ro
 DOCKER_BIND	+= -v /etc/shadow:/etc/shadow:ro
 DOCKER_BIND += -v /home/${USER}/.docker:/home/${USER}/.docker
+DOCKER_BIND += -v /home/${USER}/.aws:/home/${USER}/.aws
 
 MACHINE_BITBAKE_TARGETS = meta-toolchain swupdate-images-evo-tegra
 
