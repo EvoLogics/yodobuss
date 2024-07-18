@@ -10,6 +10,6 @@ LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " db-agent packagegroup-gstreamer pa
 # Enable all 6 cores by setting nvpmodule to mode 2
 LOCAL_CONF_OPT   += 'NVPMODEL_CONFIG_DEFAULT = "2"'
 # Sonobot number
-LOCAL_CONF_OPT   += 'EVOSN = "5156"'
+LOCAL_CONF_OPT   += 'EVOSN = "5169"'
 # Add IP Alias
-LOCAL_CONF_OPT   += 'IP_ALIAS = "172.16.186.8/24"'
+LOCAL_CONF_OPT   += 'IP_ALIAS = "172.16.199.8/24"'
