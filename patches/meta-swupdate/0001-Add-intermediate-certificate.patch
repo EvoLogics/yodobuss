@@ -1,0 +1,44 @@
+From 45982292254cfb09cc97a3534321f3e0da0dd361 Mon Sep 17 00:00:00 2001
+From: Llewellyn Fernandes <llewellyn.fernandes@evologics.de>
+Date: Tue, 6 Aug 2024 20:57:50 +0200
+Subject: [PATCH 1/1] Add intermediate certificate
+
+---
+ classes/swupdate-common.bbclass | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
+
+diff --git a/classes/swupdate-common.bbclass b/classes/swupdate-common.bbclass
+index 8cfd11b..082ddbe 100644
+--- a/classes/swupdate-common.bbclass
++++ b/classes/swupdate-common.bbclass
+@@ -218,13 +218,24 @@ def prepare_sw_description(d, s, list_for_cpio):
+                 passout = "-passin file:'%s' " % (passout)
+             else:
+                 passout = ""
+-            signcmd = "openssl cms -sign -in '%s' -out '%s' -signer '%s' -inkey '%s' %s -outform DER -nosmimecap -binary" % (
++
++            certfile_args = []
++            extra_certs = d.getVar('SWUPDATE_CMS_EXTRA_CERTS', True)
++
++            extra_paths = extra_certs.split()
++            for crt_path in extra_paths:
++              if not os.path.exists(crt_path):
++                bb.fatal("SWUPDATE_CMS_EXTRA_CERTS path %s doesn't exist" % (crt_path))
++              certfile_args.extend(["-certfile", crt_path])
++
++            signcmd = "openssl cms -sign -in '%s' -out '%s' -signer '%s' -inkey '%s' %s -outform DER -nosmimecap -binary %s" % (
+                 os.path.join(s, 'sw-description.plain' if encrypt else 'sw-description'),
+                 os.path.join(s, 'sw-description.sig'),
+                 cms_cert,
+                 cms_key,
+-                passout)
++                passout,
++                ' '.join(certfile_args))
+             if os.system(signcmd) != 0:
+-                bb.fatal("Failed to sign sw-description with %s" % (privkey))
++                bb.fatal("Failed to sign sw-description with %s" % (signcmd))
+         else:
+             bb.fatal("Unrecognized SWUPDATE_SIGNING mechanism.");
+-- 
+2.34.1
+

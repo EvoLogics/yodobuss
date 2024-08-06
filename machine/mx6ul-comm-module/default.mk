@@ -85,7 +85,7 @@ LAYERS 	+= https://git.phytec.de/meta-phytec
 
 LAYERS	+= https://git.phytec.de/meta-yogurt;patches=0001-remove-dependency-qt5-rauc.patch
 
-LAYERS	+= https://github.com/sbabic/meta-swupdate
+LAYERS	+= https://github.com/sbabic/meta-swupdate;patches=0001-Add-intermediate-certificate.patch
 
 LAYERS	+= https://github.com/meta-erlang/meta-erlang.git;branch=zeus;patches=0001-Enable-PARALLEL_MAKE.patch
 
