@@ -52,7 +52,7 @@ YOCTO_RELEASE     = thud
 # 	* patches=<patch in $(TOPDIR)/patches/<meta-layer-name>/>>[,<patch in $(TOPDIR)/patches/<meta-layer-name>/>>]
 
 #LAYERS += https://github.com/linux4sam/meta-atmel;branch=thud;srcrev=4955f98f75a763856d9085ca8962d3c32b5f42ef
-LAYERS += https://github.com/linux4sam/meta-atmel
+LAYERS += https://github.com/evologics/meta-atmel
 LAYERS += https://github.com/ramok/meta-acme
 LAYERS += https://github.com/evologics/meta-evo
 
