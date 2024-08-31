@@ -20,7 +20,7 @@ LOCAL_CONF_OPT += 'IMAGE_INSTALL_append = " dune-usbl-buoy-$${EVOSN} dune-usbl-b
 # Install for Zerotier VPN
 LOCAL_CONF_OPT += 'IMAGE_INSTALL_append = " zerotier"'
 # Install for LTE connection
-LOCAL_CONF_OPT += 'IMAGE_INSTALL_append = " libqmi quectel-cm busybox-udhcpc evo-nat evo-firewall"'
+LOCAL_CONF_OPT += 'IMAGE_INSTALL_append = " libqmi quectel-cm busybox-udhcpc evo-nat evo-firewall smcroute "'
 
 LOCAL_CONF_OPT += 'IMAGE_INSTALL_append = " mosquitto-clients"'
 
