@@ -4,6 +4,6 @@ include machine/append-sw-common/swupdate.mk
 
 LOCAL_CONF_OPT += 'HW_REVISION = "2.0"'
 
-LOCAL_CONF_OPT += 'EVOSN = "5049"'
+LOCAL_CONF_OPT += 'EVOSN = "5129"'
 
-LOCAL_CONF_OPT += 'IMAGE_CONFIGS = " gpspps"'
+LOCAL_CONF_OPT += 'IMAGE_CONFIGS += " gpspps "'
