@@ -36,7 +36,7 @@ LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " rng-tools iproute2 coreutils grep 
 # Very useful software
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " opkg dropbear bash tar monit procps util-linux ckermit curl iptables cpulimit "'
 # Useful software
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " netcat-openbsd screen tmux socat rsync file daemonize gzip rlwrap lrzsz bc ca-certificates mosquitto-dev mosquitto-clients"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " netcat-openbsd screen tmux socat rsync file daemonize gzip rlwrap lrzsz bc ca-certificates libmosquitto1 libmosquittopp1 mosquitto-clients"'
 # Hardware tools
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " can-utils i2c-tools pps-tools usbutils ethtool libgpiod spitools "'
 # Development
@@ -46,7 +46,7 @@ LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " fuse-exfat e2fsprogs exfat-utils e
 # Init for read-only rootfs
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " evo-envinit"'
 # Communication Module Specific
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " gpsd-tiny chrony dt-utils dt-utils-barebox-state soft-hwclock"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " gpsd-tiny chrony dt-utils dt-utils-barebox-state soft-hwclock comm-config networkd-dispatcher"'
 
 # Configure curl to use openssl and not gnutls
 LOCAL_CONF_OPT   += 'PACKAGECONFIG_pn-curl_append = " ssl"'
@@ -90,7 +90,7 @@ LAYERS	+= https://github.com/sbabic/meta-swupdate;patches=0001-Add-intermediate-
 LAYERS	+= https://github.com/meta-erlang/meta-erlang.git;branch=zeus;patches=0001-Enable-PARALLEL_MAKE.patch
 
 
-MACHINE_BITBAKE_TARGETS = meta-toolchain swupdate-images-evo-comm
+MACHINE_BITBAKE_TARGETS = meta-toolchain swupdate-images-evo-comm-rsa swupdate-images-evo-comm-cms
 
 
 .PHONY: ci-deploy
@@ -98,4 +98,5 @@ ci-deploy:
 	$(eval CI_DEP_DIR := $(CI_PATH:%/=%)/$(MACHINE)/$(MACHINE_CONFIG))
 	mkdir -p $(CI_DEP_DIR)
 	cp -L images/barebox.bin $(CI_DEP_DIR)  || exit 1
-	cp -L images/swupdate-images-evo-comm-$(MACHINE).swu $(CI_DEP_DIR) || exit 1
+	cp -L images/swupdate-images-evo-comm-rsa-$(MACHINE).swu $(CI_DEP_DIR) || exit 1
+	cp -L images/swupdate-images-evo-comm-cms-$(MACHINE).swu $(CI_DEP_DIR) || exit 1
