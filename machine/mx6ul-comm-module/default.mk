@@ -42,11 +42,13 @@ LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " can-utils i2c-tools pps-tools usbu
 # Development
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " ltrace strace kernel-devicetree tcl expect tcpdump"'
 # FAT/exFAT support
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " fuse-exfat e2fsprogs exfat-utils e2fsprogs-resize2fs parted"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " fuse-exfat e2fsprogs exfat-utils e2fsprogs-resize2fs parted "'
 # Init for read-only rootfs
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " evo-envinit"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " evo-envinit "'
 # Communication Module Specific
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " gpsd-tiny chrony dt-utils dt-utils-barebox-state soft-hwclock comm-config networkd-dispatcher"'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " gpsd-tiny chrony dt-utils dt-utils-barebox-state soft-hwclock comm-config "'
+# Install networkd-dispatcher
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " networkd-dispatcher python3 python3-pygobject python3-dbus "'
 
 # Configure curl to use openssl and not gnutls
 LOCAL_CONF_OPT   += 'PACKAGECONFIG_pn-curl_append = " ssl"'
