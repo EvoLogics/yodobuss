@@ -34,7 +34,7 @@ LOCAL_CONF_OPT    += 'PREFERRED_VERSION_nodejs-native_remove = "8.%"'
 # Must have for the platform
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " rng-tools iproute2 coreutils grep bridge-utils iputils iperf3 net-tools htop "'
 # Very useful software
-LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " opkg dropbear bash tar monit procps util-linux ckermit curl iptables cpulimit "'
+LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " opkg dropbear bash tar monit procps util-linux ckermit curl iptables cpulimit unicore-updater "'
 # Useful software
 LOCAL_CONF_OPT   += 'IMAGE_INSTALL_append = " netcat-openbsd screen tmux socat rsync file daemonize gzip rlwrap lrzsz bc ca-certificates libmosquitto1 libmosquittopp1 mosquitto-clients"'
 # Hardware tools
