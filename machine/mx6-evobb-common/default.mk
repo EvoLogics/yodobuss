@@ -56,6 +56,7 @@ BBMASK_append += .*tegra.*
 BBMASK_append += .*docker-ce.*
 BBMASK_append += .*systemd-conf.*
 BBMASK_append += .*rebar3.*
+BBMASK_append += .*recipes-evo-sensorik.*
 
 $(call local_conf_options_end)
 ################ end build/conf/local.conf options #####################
