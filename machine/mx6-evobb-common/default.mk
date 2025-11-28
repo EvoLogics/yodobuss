@@ -32,7 +32,7 @@ EVO_BASE_EXTRA_INSTALL     += can-utils cannelloni i2c-tools \
                               spitools avrdude uhubctl \
                               quectel-cm spidev-test
 # Development
-EVO_BASE_EXTRA_INSTALL     += kernel-devicetree tcl protobuf
+EVO_BASE_EXTRA_INSTALL     += kernel-devicetree tcl protobuf dccl
 # Time management
 EVO_BASE_EXTRA_INSTALL     += gpsd-tiny soft-hwclock
 # FAT/exFAT support
