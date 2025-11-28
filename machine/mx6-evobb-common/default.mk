@@ -32,7 +32,7 @@ EVO_BASE_EXTRA_INSTALL     += can-utils cannelloni i2c-tools \
                               spitools avrdude uhubctl \
                               quectel-cm
 # Development
-EVO_BASE_EXTRA_INSTALL     += kernel-devicetree tcl expect
+EVO_BASE_EXTRA_INSTALL     += kernel-devicetree tcl expect spidev-test
 # Time management
 EVO_BASE_EXTRA_INSTALL     += gpsd-tiny soft-hwclock
 # FAT/exFAT support
@@ -57,6 +57,7 @@ BBMASK_append += .*docker-ce.*
 BBMASK_append += .*systemd-conf.*
 BBMASK_append += .*rebar3.*
 BBMASK_append += .*recipes-evo-sensorik.*
+BBMASK_append += .*recipes-ros2-evo.*
 
 $(call local_conf_options_end)
 ################ end build/conf/local.conf options #####################
