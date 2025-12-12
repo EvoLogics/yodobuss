@@ -1,5 +1,4 @@
 include machine/append-sw-common/qemu-target.mk
-LAYERS += git@gitlab.evologics.de:bsp/meta-evo-private.git
 
 LOCAL_CONF_OPT += 'hostname_pn-base-files = "sonobot-$${EVOSN}-base"'
 
