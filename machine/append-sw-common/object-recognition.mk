@@ -1,4 +1,3 @@
-LAYERS += git@gitlab.evologics.de:bsp/meta-evo-private.git
 LAYERS += https://git.yoctoproject.org/meta-java
 
 #Install docker and object recognition software
