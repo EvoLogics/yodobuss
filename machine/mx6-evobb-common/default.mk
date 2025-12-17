@@ -30,7 +30,7 @@ EVO_BASE_EXTRA_INSTALL     += glibc-utils localedef
 # Hardware tools
 EVO_BASE_EXTRA_INSTALL     += can-utils cannelloni i2c-tools \
                               spitools avrdude uhubctl \
-                              quectel-cm spidev-test
+                              quectel-cm spidev-test silent-mode-switch-configure
 # Development
 EVO_BASE_EXTRA_INSTALL     += kernel-devicetree tcl protobuf dccl
 # Time management
